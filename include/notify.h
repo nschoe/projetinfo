@@ -46,6 +46,23 @@ extern "C" {
 #define COLOR_WARNING     COLOR_YELLOW
 #define COLOR_INFO        COLOR_GREEN
 
+/*****************************************\
+On redefinit des constantes pour etre accessibles partout dans le projet
+\*****************************************/
+
+/* taille max pour nos chaines de char */
+#define MAX_STR 1024
+
+/*************************************************************\
+Valeur de retour speciales lorsqu'on pour la fonction
+	int parse_and_execute_cmd_string(char *input) ;
+Toute autre valeur signifie qu'une erreur est survenue
+ \*************************************************************/
+#define CMD_OK_RETURN_VALUE 0
+#define CMD_EXIT_RETURN_VALUE -1
+#define CMD_EMPTY_RETURN_VALUE -2
+#define CMD_UNKOWN_RETURN_VALUE -3
+
 #define STYLE(purpose)						\
   (purpose == FOR_ERRORS ? STYLE_ERROR :			\
    (purpose == FOR_WARNINGS ? STYLE_WARNING : STYLE_INFO ))
