@@ -17,6 +17,24 @@
 /* macros de DEBUG_MSG fournies , etc */
 #include "notify.h"
 
+/* Inclusion de tous les fichiers de fonction externe */
+#include "bp.h"
+#include "da.h"
+#include "db.h"
+#include "dm.h"
+#include "dr.h"
+#include "er.h"
+#include "ex.h"
+#include "lm.h"
+#include "lp.h"
+#include "lr.h"
+#include "run.h"
+#include "s.h"
+#include "si.h"
+
+#include "mips.h"
+#include "hash_cmd.h"
+
 /* prompt du mode shell interactif */
 #define PROMPT_STRING "SimMipsShell : > "
 
