@@ -114,6 +114,7 @@ int parse_and_execute_cmd_exit(char * paramsStr) {
 int parse_and_execute_cmd_string(char *input) {
     DEBUG_MSG("input '%s'", input);
     char cmdStr[MAX_STR];
+    int hasher = 0, i = 0;
     memset( cmdStr, '\0', MAX_STR );
 
     /* gestion des commandes vides, commentaires, etc*/
@@ -124,11 +125,23 @@ int parse_and_execute_cmd_string(char *input) {
         return CMD_EMPTY_RETURN_VALUE;
     }
 
+    /* hashage de la commande */
+    if(strlen(cmdStr) < 4)
+    {
+        while(cmdStr[i] != '\0')
+	{
+	    printf("test\n");
+	    hasher = hasher*256 + cmdStr[i];
+	    i++;
+	    printf("test\n");
+	}
+    }
+     
     /*parsing et execution des commandes !*/
     if(strcmp(cmdStr, "testcmd") == 0) {
         return parse_and_execute_cmd_testcmd(input + strlen(cmdStr) );
-    } else if(strcmp(cmdStr, "exit") == 0) {
-        return parse_and_execute_cmd_exit(input + strlen(cmdStr) );
+    } else if(hasher == 0x6578) {
+        return parseEx();
     }
     WARNING_MSG("Unknown Command : '%s'\n", cmdStr);
     return CMD_UNKOWN_RETURN_VALUE;
