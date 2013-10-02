@@ -114,12 +114,13 @@ int parse_and_execute_cmd_exit(char * paramsStr) {
 
 int hashageCmd(char *cmdStr)
 {
-  int hasher = 0, i = 0;
-    if(strlen(cmdStr) < 4)
+    int hasher = 0, i = 0;
+
+    if(strlen(cmdStr) < 5) /* la commande ne doit pas faire plus de 3 caractères (4 si je compte le \0) */
     {
         while(cmdStr[i] != '\0')
-	{
-	    hasher = hasher*256 + cmdStr[i];
+        {
+	    hasher = hasher*256 + cmdStr[i]; /* decalge de 2 bits hexa */
 	    i++;
 	}
     }
