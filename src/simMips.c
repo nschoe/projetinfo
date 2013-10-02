@@ -111,10 +111,26 @@ int parse_and_execute_cmd_exit(char * paramsStr) {
  * @return CMD_UNKOWN_RETURN_VALUE si la commande n'est pas reconnue. (-3)
  * @return tout autre nombre (eg tout nombre positif) si erreur d'execution de la commande
  */
+
+int hashageCmd(char *cmdStr)
+{
+  int hasher = 0, i = 0;
+    if(strlen(cmdStr) < 4)
+    {
+        while(cmdStr[i] != '\0')
+	{
+	    hasher = hasher*256 + cmdStr[i];
+	    i++;
+	}
+    }
+
+    return hasher;
+}
+
 int parse_and_execute_cmd_string(char *input) {
     DEBUG_MSG("input '%s'", input);
     char cmdStr[MAX_STR];
-    int hasher = 0, i = 0;
+    int hasher;
     memset( cmdStr, '\0', MAX_STR );
 
     /* gestion des commandes vides, commentaires, etc*/
@@ -126,16 +142,7 @@ int parse_and_execute_cmd_string(char *input) {
     }
 
     /* hashage de la commande */
-    if(strlen(cmdStr) < 4)
-    {
-        while(cmdStr[i] != '\0')
-	{
-	    printf("test\n");
-	    hasher = hasher*256 + cmdStr[i];
-	    i++;
-	    printf("test\n");
-	}
-    }
+    hasher = hashageCmd(cmdStr);
      
     /*parsing et execution des commandes !*/
     if(strcmp(cmdStr, "testcmd") == 0) {
