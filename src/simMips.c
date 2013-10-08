@@ -35,7 +35,6 @@
 #include "mips.h"
 #include "hash_cmd.h"
 
-#define HASH_BP 0x6270
 /* prompt du mode shell interactif */
 #define PROMPT_STRING "SimMipsShell : > "
 
