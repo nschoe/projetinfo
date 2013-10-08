@@ -35,6 +35,7 @@
 #include "mips.h"
 #include "hash_cmd.h"
 
+#define HASH_BP 0x6270
 /* prompt du mode shell interactif */
 #define PROMPT_STRING "SimMipsShell : > "
 
@@ -117,6 +118,7 @@ int parse_and_execute_cmd_string(char *input) {
     DEBUG_MSG("input '%s'", input);
     char cmdStr[MAX_STR];
     int hasher;
+    char* adArg; // adress of the first command argument
     memset( cmdStr, '\0', MAX_STR );
 
     /* gestion des commandes vides, commentaires, etc*/
@@ -130,15 +132,50 @@ int parse_and_execute_cmd_string(char *input) {
     /* hashage de la commande */
     hasher = hashageCmd(cmdStr);
 
-    DEBUG_MSG("commande = %s input = %s\n", cmdStr, input);
-     
+    adArg = input + strlen(smdStr);
+
     /*parsing et execution des commandes !*/
-    if(strcmp(cmdStr, "testcmd") == 0) {
-        return parse_and_execute_cmd_testcmd(input + strlen(cmdStr) );
-    } else if(hasher == 0x6578) {
-        return parseEx();
+    switch(hasher)
+    {
+        case HASH_BP :
+	    return parseBp(adArg);
+	    break;
+	case HASH_DA :
+	    return parseBp(adArg);
+	    break;
+	case HASH_DB :
+	    return parseDb(adArg);
+	    break;
+        case HASH_DM :
+	    return parseDm(adArg);
+	    break;
+	case HASH_DR :
+	    return parseDr(adArg);
+	    break;
+	case HASH_ER :
+	    return parseEr(adArg);
+	    break;
+        case HASH_EX :
+	    return parseEx();
+	    break;
+	case HASH_LM :
+	    return parseLm(adArg);
+	    break;
+	case HASH_LP :
+	    return parseLp(adArg);
+	    break;
+	case HASH_RUN :
+	    return parseRun(adArg);
+	    break;
+	case HASH_S :
+	    return parseS(adArg);
+	    break;
+	case HASH_SI :
+	    return parseSI(adArg);
+	    break;
+        default :
+	    WARNING_MSG("Unknown Command : '%s'\n", cmdStr);
     }
-    WARNING_MSG("Unknown Command : '%s'\n", cmdStr);
     return CMD_UNKOWN_RETURN_VALUE;
 }
 

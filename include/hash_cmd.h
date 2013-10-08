@@ -1,6 +1,10 @@
 #ifndef _HASH_CMD_
 #define _HASH_CMD_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 // Hash codes of all the functions
 #define HASH_BP 0x6270
 #define HASH_DA 0x6461

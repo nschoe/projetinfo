@@ -12,7 +12,7 @@ int hashageCmd(char *cmdStr)
     {
         while(cmdStr[i] != '\0')
         {
-	    hasher = hasher*256 + cmdStr[i]; /* decalge de 2 bits hexa */
+	    hasher = hasher*256 + cmdStr[i]; /* decalage de 2 bits hexa */
 	    i++;
 	}
     }
