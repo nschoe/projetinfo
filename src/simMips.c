@@ -83,16 +83,17 @@ int parse_and_execute_cmd_testcmd(char * paramsStr) {
 
 
 /***************/
+/*
 int execute_cmd_exit() {
     INFO_MSG("Bye bye !");
     return CMD_EXIT_RETURN_VALUE;
 }
 
 int parse_and_execute_cmd_exit(char * paramsStr) {
-    /*on ignore tous les parametres ! */
+    //on ignore tous les parametres !
     return execute_cmd_exit();
 }
-
+*/
 
 
 /*************************************************************\
@@ -112,22 +113,6 @@ int parse_and_execute_cmd_exit(char * paramsStr) {
  * @return tout autre nombre (eg tout nombre positif) si erreur d'execution de la commande
  */
 
-int hashageCmd(char *cmdStr)
-{
-    int hasher = 0, i = 0;
-
-    if(strlen(cmdStr) < 5) /* la commande ne doit pas faire plus de 3 caractères (4 si je compte le \0) */
-    {
-        while(cmdStr[i] != '\0')
-        {
-	    hasher = hasher*256 + cmdStr[i]; /* decalge de 2 bits hexa */
-	    i++;
-	}
-    }
-
-    return hasher;
-}
-
 int parse_and_execute_cmd_string(char *input) {
     DEBUG_MSG("input '%s'", input);
     char cmdStr[MAX_STR];
@@ -144,6 +129,8 @@ int parse_and_execute_cmd_string(char *input) {
 
     /* hashage de la commande */
     hasher = hashageCmd(cmdStr);
+
+    DEBUG_MSG("commande = %s input = %s\n", cmdStr, input);
      
     /*parsing et execution des commandes !*/
     if(strcmp(cmdStr, "testcmd") == 0) {
@@ -188,6 +175,9 @@ int  acquire_line(FILE *fp, char * input) {
         if(ret == NULL) {
             return 1;
         }
+    if(strlen(ret) >0 && ret[strlen(ret) -1] == '\n') {
+ ret[strlen(ret)-1] = '\0';
+ }
     }
     DEBUG_MSG("Ligne acquise '%s'\n", input); /* macro DEBUG_MSG : uniquement si compil en mode DEBUG_MSG */
     return 0;
