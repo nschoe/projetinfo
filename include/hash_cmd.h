@@ -1,5 +1,5 @@
-#ifndef _HASH_CMD_
-#define _HASH_CMD_
+#ifndef _HASH_CMD_2_
+#define _HASH_CMD_2_
 
 #include <stdio.h>
 #include <stdlib.h>

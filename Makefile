@@ -1,3 +1,4 @@
+
 TARGET=simMips
 
 CC=`which gcc`
@@ -46,9 +47,12 @@ release : $(OBJ_RLS)
 	$(CC) $< $(CFLAGS_DBG) -c -o $(basename $<).dbg.o
 
 clean : 
-	$(RM) $(TARGET) $(SRCDIR)/*.o $(GARBAGE)
+	$(RM) $(TARGET) perso $(SRCDIR)/*.o $(GARBAGE)
 
 tarball : 
 	make clean 
 	tar -czvf ../$(notdir $(PWD) )-`whoami`-`date +%d-%m-%H-%M`.tgz .
 	echo "Fichier archive ../simMips-`whoami`-`date +%d-%m-%H-%M`.tgz genere"
+
+perso	: perso.c
+	gcc perso.c $(CFLAGS) -o perso
