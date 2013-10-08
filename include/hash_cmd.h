@@ -1,5 +1,5 @@
-#ifndef _HASH_CMD_
-#define _HASH_CMD_
+#ifndef _HASH_CMD_2_
+#define _HASH_CMD_2_
 
 // Hash codes of all the functions
 #define HASH_BP 0x6270

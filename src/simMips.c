@@ -130,6 +130,8 @@ int parse_and_execute_cmd_string(char *input) {
     /* hashage de la commande */
     hasher = hashageCmd(cmdStr);
 
+    printf( "value = %x\n", HASH_EX );
+
     DEBUG_MSG("commande = %s input = %s\n", cmdStr, input);
      
     /*parsing et execution des commandes !*/
