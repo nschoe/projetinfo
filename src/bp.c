@@ -1,6 +1,6 @@
 #include "bp.h"
 
-int executeBp(char * paramsStr)
+int executeBp(char * paramStr)
 {
 }
 
