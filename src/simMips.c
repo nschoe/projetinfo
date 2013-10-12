@@ -131,7 +131,7 @@ int parse_and_execute_cmd_string(char *input) {
     /* hashage de la commande */
     hasher = hashageCmd(cmdStr);
 
-    adArg = input + strlen(smdStr);
+    adArg = input + strlen(cmdStr);
 
     /*parsing et execution des commandes !*/
     switch(hasher)
@@ -170,7 +170,7 @@ int parse_and_execute_cmd_string(char *input) {
 	    return parseS(adArg);
 	    break;
 	case HASH_SI :
-	    return parseSI(adArg);
+	    return parseSi(adArg);
 	    break;
         default :
 	    WARNING_MSG("Unknown Command : '%s'\n", cmdStr);

@@ -47,12 +47,18 @@ release : $(OBJ_RLS)
 	$(CC) $< $(CFLAGS_DBG) -c -o $(basename $<).dbg.o
 
 clean : 
-	$(RM) $(TARGET) perso $(SRCDIR)/*.o $(GARBAGE)
+	$(RM) $(TARGET) perso hash_cmd.o $(SRCDIR)/*.o $(GARBAGE)
 
 tarball : 
 	make clean 
 	tar -czvf ../$(notdir $(PWD) )-`whoami`-`date +%d-%m-%H-%M`.tgz .
 	echo "Fichier archive ../simMips-`whoami`-`date +%d-%m-%H-%M`.tgz genere"
 
-perso	: perso.c
-	gcc perso.c $(CFLAGS) -o perso
+hash_cmd.o : src/hash_cmd.c
+	gcc -c src/hash_cmd.c $(CFLAGS) -o hash_cmd.o
+
+lp.o : 	src/lp.c
+	gcc -c src/lp.c $(CFLAGS) -o lp.o
+
+perso	: perso.c hash_cmd.o lp.o
+	gcc perso.c $(CFLAGS) hash_cmd.o lp.o -o perso

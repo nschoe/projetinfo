@@ -8,6 +8,6 @@
 #include "notify.h"
 
 int executeLp();
-int parseLp();
+int parseLp( char *);
 
 #endif
