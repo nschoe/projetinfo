@@ -8,7 +8,7 @@
 #include "notify.h"
 #include "mips.h"
 
-int executeLm(char * paramStr);
+int executeLm( mips *, uint, uint );
 int parseLm( mips *, char * );
 
 #endif
