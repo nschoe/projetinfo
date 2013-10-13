@@ -5,7 +5,7 @@
 #include "mips.h"
 #include "notify.h"
 
-#include "mips.h"
+#include "parseAddr.h"
 
 // Tell us if a char is a digit or not
 int isDigit( const char str )
