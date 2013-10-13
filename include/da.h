@@ -8,7 +8,7 @@
 #include "notify.h"
 #include "mips.h"
 
-int executeDa(char * paramStr);
+int executeDa( mips *, uint, uint );
 int parseDa( mips *, char * );
 
 #endif

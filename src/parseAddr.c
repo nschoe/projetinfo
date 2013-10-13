@@ -27,7 +27,7 @@ uint parseAddr( const char * str )
     // Empty string
     if( 0 == strlen( str ) )
     {
-	WARNING_MSG( "Empty string given in palce of an address !\n" );
+	ERROR_MSG( "Empty string given in place of an address !\n" );
     }
 
     else if( 1 == strlen( str ) )
@@ -35,7 +35,7 @@ uint parseAddr( const char * str )
 	if( isDigit( str[0] ) )
 	    sscanf( str, "%d", &parse );
 	else
-	    WARNING_MSG( "Not an address given!\n" );
+	    ERROR_MSG( "Not an address given!\n" );
     }
 
     else if( '0' == str[0] )
@@ -46,10 +46,14 @@ uint parseAddr( const char * str )
 	    // Hexa value
 	    sscanf( str, "%x", &parse );
 	}
-	else
+	else if( isDigit( str[1] ) )
 	{
 	    // Octal value
 	    sscanf( str, "%o", &parse );
+	}
+	else
+	{
+	    ERROR_MSG( "\"%s\" is not a number !\n", str );
 	}
     }
     else
@@ -61,7 +65,7 @@ uint parseAddr( const char * str )
 	    sscanf( str, "%d", &parse );
 	}
 	else
-	    WARNING_MSG( "\"%s\" is not a number !\n", str );
+	    ERROR_MSG( "\"%s\" is not a number !\n", str );
     }
 
     return parse;
