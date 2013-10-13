@@ -2,6 +2,7 @@
 
 int executeLr(char * regName, char * regValue, mips micro)
 {
+/*
     int i;
     int value;
 
@@ -10,7 +11,7 @@ int executeLr(char * regName, char * regValue, mips micro)
 	WARNING_MSG("Second parameter must be a hexadecimel number (starting with 0x)");
 	return 1;
     }
-    sscanf(regValue, "%x", value);
+    sscanf(regValue, "%x", &value);
 
     if(regName[0] != '$')
     {
@@ -36,7 +37,7 @@ int executeLr(char * regName, char * regValue, mips micro)
 	return 3;
     }
     micro.registers[i] = value;
-
+*/
     return 0;
 }
 

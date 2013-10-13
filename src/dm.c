@@ -1,11 +1,12 @@
 #include "dm.h"
 
-int executeDm(char * paramStr)
+int executeDm()
 {
     return 0;
 }
 
-int parseDm()
+int parseDm( char * paramStr )
 {
+    printf( "given : '%s'\n", paramStr );
     return 0;
 }

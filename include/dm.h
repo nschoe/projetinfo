@@ -7,7 +7,7 @@
 
 #include "notify.h"
 
-int executeDm(char * paramStr);
-int parseDm();
+int executeDm();
+int parseDm( char * paramStr );
 
 #endif
