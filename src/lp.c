@@ -9,7 +9,7 @@
 /* Check that one and exactly one file argument has been given
    and that it exists and is readable
 */
-int parseLp( char * args )
+int parseLp( mips * pMips, char * args )
 {
     char * argsCopy = malloc( strlen( args ) * sizeof( char ) );
     char * pch = NULL;

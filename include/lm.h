@@ -9,6 +9,6 @@
 #include "mips.h"
 
 int executeLm(char * paramStr);
-int parseLm( mips * );
+int parseLm( mips *, char * );
 
 #endif

@@ -9,6 +9,6 @@
 #include "mips.h"
 
 int executeEr(char * paramStr);
-int parseEr( mips * );
+int parseEr( mips *, char * );
 
 #endif

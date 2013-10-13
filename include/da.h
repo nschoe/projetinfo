@@ -9,6 +9,6 @@
 #include "mips.h"
 
 int executeDa(char * paramStr);
-int parseDa( mips * );
+int parseDa( mips *, char * );
 
 #endif

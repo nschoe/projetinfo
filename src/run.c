@@ -5,7 +5,7 @@ int executeRun(char * paramStr)
     return 0;
 }
 
-int parseRun( mips * pMips )
+int parseRun( mips * pMips, char * args )
 {
     return 0;
 }

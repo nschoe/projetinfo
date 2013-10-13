@@ -9,6 +9,6 @@
 #include "mips.h"
 
 int executeDb(char * pramStr);
-int parseDb( mips * );
+int parseDb( mips *, char * );
 
 #endif

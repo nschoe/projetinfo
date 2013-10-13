@@ -9,6 +9,6 @@
 #include "mips.h"
 
 int executeBp(char * paramStr);
-int parseBp( mips * );
+int parseBp( mips *, char * );
 
 #endif
