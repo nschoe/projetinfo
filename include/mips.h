@@ -4,10 +4,7 @@
 typedef unsigned int uint;
 
 // Register data type
-typedef struct
-{
-    uint v;             // sizeof( unsigned int ) = 32
-} reg;
+typedef uint reg;         // sizeof( unsigned int ) = 32
 
 // Architecture of the MIPS
 typedef struct

@@ -113,7 +113,7 @@ int parse_and_execute_cmd_exit(char * paramsStr) {
  * @return tout autre nombre (eg tout nombre positif) si erreur d'execution de la commande
  */
 
-int parse_and_execute_cmd_string(char *input) {
+int parse_and_execute_cmd_string(char *input, mips * pMips) {
     DEBUG_MSG("input '%s'", input);
     char cmdStr[MAX_STR];
     int hasher;
@@ -149,7 +149,7 @@ int parse_and_execute_cmd_string(char *input) {
 	    return parseDm(adArg);
 	    break;
 	case HASH_DR :
-	    return parseDr(adArg);
+	    return parseDr(adArg, pMips);
 	    break;
 	case HASH_ER :
 	    return parseEr(adArg);
@@ -162,6 +162,9 @@ int parse_and_execute_cmd_string(char *input) {
 	    break;
 	case HASH_LP :
 	    return parseLp(adArg);
+	    break;
+	case HASH_LR :
+	    return parseLr(adArg, pMips);
 	    break;
 	case HASH_RUN :
 	    return parseRun(adArg);
@@ -236,6 +239,7 @@ int main ( int argc, char *argv[] ) {
     DEBUG_MSG("Un message DEBUG_MSG !"); /* macro DEBUG_MSG : uniquement si compil en mode DEBUG_MSG */
 
     FILE *fp = NULL; /* le flux dans lequel les commande seront lues : stdin (mode shell) ou un fichier */
+    mips uP;
 
     if ( argc > 2 ) {
         usage_ERROR_MSG( argv[0] );
@@ -262,7 +266,7 @@ int main ( int argc, char *argv[] ) {
         char input[MAX_STR];
         if ( acquire_line( fp,  input )  == 0 ) {
             /* Une nouvelle ligne a ete acquise dans le flux fp*/
-            int res = parse_and_execute_cmd_string(input); /* execution de la commande */
+            int res = parse_and_execute_cmd_string(input, &uP); /* execution de la commande */
             switch(res) {
             case CMD_OK_RETURN_VALUE: /* tout s'est bien passé */
                 break;

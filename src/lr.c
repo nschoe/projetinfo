@@ -2,7 +2,7 @@
 
 int executeLr(int index, uint value, mips * pMips)
 {
-    switch(reg)
+    switch(index)
     {
         case -1 :
 	    pMips->regPC = value;
@@ -30,7 +30,7 @@ int parseLr(char * paramStr, mips * pMips)
 
     int index = 32, i;
     uint value;
-    char regsNames[32][] = {"$zero", "$at", "$vo", "$v1", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7", "$s0", "$s1", "$s2", "$s3", "$s4", "$s5", "$s6", "$s7", "$t8", "$t9", "$k0", "$k1", "$gp", "$sp", "$fp", "$ra"}
+    char * regsNames[] = {"$zero", "$at", "$vo", "$v1", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7", "$s0", "$s1", "$s2", "$s3", "$s4", "$s5", "$s6", "$s7", "$t8", "$t9", "$k0", "$k1", "$gp", "$sp", "$fp", "$ra"};
 
     strcpy(paramStrCpy, paramStr); // copy of param allowing modifications
 
@@ -41,20 +41,20 @@ int parseLr(char * paramStr, mips * pMips)
 	return 1;
     }
 
-    regValue = strtok(paramStrCpy, delim); // cut the second parameters : value of the register
+    regValue = strtok(NULL, delim); // cut the second parameters : value of the register
     if(regValue == NULL)
     {
 	WARNING_MSG("A value for the register must be given to the function 'lr'\n");
 	return 2;
     }
 
-    if(strtok(paramStrCpy, delim) != NULL)
+    if(strtok(NULL, delim) != NULL)
     {
 	WARNING_MSG("Too much parameters, lr only takes two arguments\n");
 	return 3;
     }
 
-    if(sscanf(regValue, "%x", &value) == EOF)
+    if(sscanf(regValue, "%x", &value) == EOF) // TODO
     {
 	WARNING_MSG("Second parameter must be a hexadecimel number (starting with 0x)\n");
 	return 4;
@@ -63,7 +63,7 @@ int parseLr(char * paramStr, mips * pMips)
     if(regName[0] != '$')
     {
 	if(!strcmp(regName, "PC"))
-	    index = -1:
+	    index = -1;
 	else if(!strcmp(regName, "HI"))
 	    index = -2;
 	else if(!strcmp(regName, "LO"))
