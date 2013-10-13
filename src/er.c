@@ -5,7 +5,7 @@ int executeEr(char * paramStr)
     return 0;
 }
 
-int parseEr()
+int parseEr( mips * pMips )
 {
     return 0;
 }

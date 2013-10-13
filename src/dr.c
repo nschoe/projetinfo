@@ -1,5 +1,5 @@
 #include "dr.h"
 
-int parseDr(char * paramStr, mips * pMips)
+int parseDr( mips * pMips, char * paramStr, mips * pMips )
 {
 }

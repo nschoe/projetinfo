@@ -6,7 +6,7 @@ int executeEx()
     return CMD_EXIT_RETURN_VALUE;
 }
 
-int parseEx()
+int parseEx( mips * pMips )
 {
     return executeEx();
 }

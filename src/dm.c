@@ -47,7 +47,7 @@ int executeDmNb( uint from, uint nb )
     return 0;
 }
 
-int parseDm( char * paramStr )
+int parseDm( mips * pMips, char * paramStr )
 {
     uint v1 = 0;
     uint v2 = 0;

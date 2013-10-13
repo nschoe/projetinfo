@@ -5,7 +5,7 @@ int executeBp(char * paramStr)
     return 0;
 }
 
-int parseBp()
+int parseBp( mips * pMips )
 {
     return 0;
 }
