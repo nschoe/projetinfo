@@ -9,7 +9,7 @@
 #include "mips.h"
 #include "parseReg.h"
 
-int executeLr(char * regName, char * regValue, mips micro);
-int parseLr(char * paramStr, mips micro);
+int executeLr(char * regName, char * regValue, mips * pMips);
+int parseLr(char * paramStr, mips * pMips);
 
 #endif
