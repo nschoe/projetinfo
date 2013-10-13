@@ -12,7 +12,7 @@ int isDigit( const char str )
 {
     int b;
 
-    if( str >= 48 && str <= 57 ) // 48 : '0' / 57 ; '9'
+    if( str >= 48 && str <= 57 ) // 48 : '0' / 57 : '9'
 	b = 1;
     else
 	b = 0;
@@ -23,10 +23,22 @@ int isDigit( const char str )
 uint parseAddr( const char * str )
 {
     uint parse;
-    
-    // TODO : strlen == 1 !!
 
-    if( '0' == str[0] )
+    // Empty string
+    if( 0 == strlen( str ) )
+    {
+	WARNING_MSG( "Empty string given in palce of an address !\n" );
+    }
+
+    else if( 1 == strlen( str ) )
+    {
+	if( isDigit( str[0] ) )
+	    sscanf( str, "%d", &parse );
+	else
+	    WARNING_MSG( "Not an address given!\n" );
+    }
+
+    else if( '0' == str[0] )
     {
 	// May be hexa or octal
 	if( 'x' == str[1] )

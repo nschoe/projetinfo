@@ -7,7 +7,6 @@
 
 #include "notify.h"
 #include "mips.h"
-#include "parseReg.h"
 
 int executeLr(char * regName, char * regValue, mips * pMips);
 int parseLr(char * paramStr, mips * pMips);
