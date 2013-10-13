@@ -9,6 +9,6 @@
 #include "mips.h"
 
 int executeDr(char ** regNameArray, int nbParam, mips * pMips);
-int parseDr( mips *, char * paramStr, mips * pMips);
+int parseDr( mips *, char * paramStr );
 
 #endif
