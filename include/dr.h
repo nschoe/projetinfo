@@ -8,7 +8,7 @@
 #include "notify.h"
 #include "mips.h"
 
-int executeDr(char ** regNameArray, int nbParam, mips * pMips);
+int executeDr(mips * pMips, int index, char * regName);
 int parseDr( mips *, char * paramStr );
 
 #endif
