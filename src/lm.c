@@ -5,7 +5,7 @@ int executeLm(char * paramStr)
     return 0;
 }
 
-int parseLm()
+int parseLm( mips * pMips )
 {
     return 0;
 }

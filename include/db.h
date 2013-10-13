@@ -6,8 +6,9 @@
 #include <string.h>
 
 #include "notify.h"
+#include "mips.h"
 
 int executeDb(char * pramStr);
-int parseDb();
+int parseDb( mips * );
 
 #endif

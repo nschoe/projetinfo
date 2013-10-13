@@ -21,7 +21,7 @@ int executeLr(int index, uint value, mips * pMips)
     return 0;
 }
 
-int parseLr(char * paramStr, mips * pMips)
+int parseLr( mips * pMips,  char * paramStr, mips * pMips)
 {
     char * paramStrCpy = malloc(strlen(paramStr)*sizeof(char));
     char * regName = NULL;

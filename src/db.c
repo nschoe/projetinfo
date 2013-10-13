@@ -5,7 +5,7 @@ int executeDb(char * paramStr)
     return 0;
 }
 
-int parseDb()
+int parseDb( mips * pMips )
 {
     return 0;
 }
