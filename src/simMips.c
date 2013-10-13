@@ -137,43 +137,43 @@ int parse_and_execute_cmd_string(char *input, mips * pMips) {
     switch(hasher)
     {
         case HASH_BP :
-	    return parseBp(adArg);
+	    return parseBp(pMips, adArg);
 	    break;
 	case HASH_DA :
-	    return parseBp(adArg);
+	    return parseDa(pMips, adArg);
 	    break;
 	case HASH_DB :
-	    return parseDb(adArg);
+	    return parseDb(pMips, adArg);
 	    break;
         case HASH_DM :
-	    return parseDm(adArg);
+	    return parseDm(pMips, adArg);
 	    break;
 	case HASH_DR :
-	    return parseDr(adArg, pMips);
+	    return parseDr(pMips, adArg);
 	    break;
 	case HASH_ER :
-	    return parseEr(adArg);
+	    return parseEr(pMips, adArg);
 	    break;
         case HASH_EX :
-	    return parseEx();
+	    return parseEx(pMips, adArg);
 	    break;
 	case HASH_LM :
-	    return parseLm(adArg);
+	    return parseLm(pMips, adArg);
 	    break;
 	case HASH_LP :
-	    return parseLp(adArg);
+	    return parseLp(pMips, adArg);
 	    break;
 	case HASH_LR :
-	    return parseLr(adArg, pMips);
+	    return parseLr(pMips, adArg);
 	    break;
 	case HASH_RUN :
-	    return parseRun(adArg);
+	    return parseRun(pMips, adArg);
 	    break;
 	case HASH_S :
-	    return parseS(adArg);
+	    return parseS(pMips, adArg);
 	    break;
 	case HASH_SI :
-	    return parseSi(adArg);
+	    return parseSi(pMips, adArg);
 	    break;
         default :
 	    WARNING_MSG("Unknown Command : '%s'\n", cmdStr);
