@@ -1,10 +1,12 @@
 #ifndef _MIPS_H_
-#define _MPIS_H_
+#define _MIPS_H_
+
+typedef unsigned int uint;
 
 // Register data type
 typedef struct
 {
-    char v[4];           // 4 char is 4*8 = 32 bits
+    uint v;             // sizeof( unsigned int ) = 32
 } reg;
 
 // Architecture of the MIPS

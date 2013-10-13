@@ -60,5 +60,8 @@ hash_cmd.o : src/hash_cmd.c
 lp.o : 	src/lp.c
 	gcc -c src/lp.c $(CFLAGS) -o lp.o
 
-perso	: perso.c hash_cmd.o lp.o
-	gcc perso.c $(CFLAGS) hash_cmd.o lp.o -o perso
+parseAddr.o : src/parseAddr.c
+	gcc -c src/parseAddr.c $(CFLAGS) -o parseAddr.o
+
+perso	: perso.c hash_cmd.o lp.o parseAddr.o
+	gcc perso.c $(CFLAGS) hash_cmd.o lp.o parseAddr.o -o perso
