@@ -27,7 +27,7 @@ int executeDr(mips * pMips, int index, char * regName)
 	    break;
     }
 
-    return 0;
+    return CMD_OK_RETURN_VALUE;
 }
 
 int parseDr( mips * pMips, char * paramStr )
@@ -79,5 +79,5 @@ int parseDr( mips * pMips, char * paramStr )
 	regName = strtok(NULL, delim); // next parameter
     }
 
-    return 0;
+    return CMD_OK_RETURN_VALUE;
 }

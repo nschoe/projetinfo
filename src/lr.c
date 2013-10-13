@@ -18,7 +18,7 @@ int executeLr(int index, uint value, mips * pMips)
 	    break;
     }
 
-    return 0;
+    return CMD_OK_RETURN_VALUE;
 }
 
 int parseLr( mips * pMips,  char * paramStr )
@@ -38,7 +38,7 @@ int parseLr( mips * pMips,  char * paramStr )
     if(regName == NULL)
     {
 	WARNING_MSG("A number or a name of register must be given to the function 'lr'\n");
-	return 1;
+	return 2;
     }
 
     regValue = strtok(NULL, delim); // cut the second parameters : value of the register
@@ -51,13 +51,13 @@ int parseLr( mips * pMips,  char * paramStr )
     if(strtok(NULL, delim) != NULL)
     {
 	WARNING_MSG("Too much parameters, lr only takes two arguments\n");
-	return 3;
+	return 2;
     }
 
     if(regValue[0] != '0' || regValue[1] != 'x' ||  sscanf(regValue, "%x", &value))
     {
 	WARNING_MSG("Second parameter must be a hexadecimel number (starting with 0x)\n");
-	return 4;
+	return 2;
     }
 
     if(regName[0] != '$')
@@ -81,10 +81,8 @@ int parseLr( mips * pMips,  char * paramStr )
     if(index > 31)
     {
 	WARNING_MSG("This register does not exist\n");
-	return 5;
+	return 2;
     }
 
-    executeLr(index, value, pMips); // change register value
-
-    return 0;
+    return executeLr(index, value, pMips); // change register value
 }
