@@ -54,7 +54,7 @@ int parseLr( mips * pMips,  char * paramStr )
 	return 3;
     }
 
-    if(sscanf(regValue, "%x", &value) == EOF) // TODO
+    if(regValue[0] != '0' || regValue[1] != 'x' ||  sscanf(regValue, "%x", &value))
     {
 	WARNING_MSG("Second parameter must be a hexadecimel number (starting with 0x)\n");
 	return 4;
@@ -70,7 +70,8 @@ int parseLr( mips * pMips,  char * paramStr )
 	    index = -3;
     }
 
-    sscanf(regName + 1, "%d", &index);
+    if(regName[1] > 0x30 && regName[1] < 0x39)
+	sscanf(regName + 1, "%d", &index);
     for(i = 0; i < 32; i++)
     {
 	if(!strcmp(regName, regsNames[i]))
