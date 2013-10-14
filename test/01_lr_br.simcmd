@@ -1,0 +1,4 @@
+lr $5 0x59
+lr PC 0x85
+lr $gp 0x28
+dr $5 PC $gp
