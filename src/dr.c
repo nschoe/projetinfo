@@ -6,24 +6,24 @@ int executeDr(mips * pMips, int index, char * regName)
 
     switch(index)
     {
-        case -1 :
-	    printf("%s\t:\t%#x\n", regName, pMips->regPC);
+        case -1 : // PC
+	    printf("PC :\t%#x\n", pMips->regPC);
 	    break;
-        case -2 :
-	    printf("%s\t:\t%#x\n", regName, pMips->regHI);
+        case -2 : // HI
+	    printf("HI :\t%#x\n", pMips->regHI);
 	    break;
-        case -3 :
-	    printf("%s\t:\t%#x\n", regName, pMips->regLO);
+        case -3 : // LO
+	    printf("LO :\t%#x\n", pMips->regLO);
 	    break;
-        case -4 :
+        case -4 : // aucun parametre
 	    for(i = 0; i < 32; i++)
-		printf("$%d\t:\t%#x\n", i, pMips->registers[i]);
-	    printf("PC\t:\t%#x\n", i, pMips->regPC);
-	    printf("HI\t:\t%#x\n", i, pMips->regHI);
-	    printf("LO\t:\t%#x\n", i, pMips->regLO);
+		printf("$%d :\t%#x\n", i, pMips->registers[i]);
+	    printf("PC :\t%#x\n", pMips->regPC);
+	    printf("HI :\t%#x\n", pMips->regHI);
+	    printf("LO :\t%#x\n", pMips->regLO);
 	    break;
         default :
-	    printf("%s\t:\t%#x\n", regName, pMips->registers[index]);
+	    printf("%s :\t%#x\n", regName, pMips->registers[index]);
 	    break;
     }
 
@@ -63,17 +63,15 @@ int parseDr( mips * pMips, char * paramStr )
 		index = -3;
 	}
 	else if(regName[1] > 0x30 && regName[1] < 0x39)
-	{
 	    sscanf(regName + 1, "%d", &index);
-	    for(i = 0; i < 32; i++)
-	    {
-		if(!strcmp(regName, regsNames[i]))
-		    index = i;
-	    }
+        for(i = 0; i < 32; i++)
+	{
+	    if(!strcmp(regName, regsNames[i]))
+		index = i;
 	}
 
 	if(index > 31)
-	    WARNING_MSG("This register does not exist\n");
+	    WARNING_MSG("This register does not exist");
 	else
 	    executeDr(pMips, index, regName); // print register value
 	regName = strtok(NULL, delim); // next parameter

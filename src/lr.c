@@ -54,9 +54,9 @@ int parseLr( mips * pMips,  char * paramStr )
 	return 2;
     }
 
-    if(regValue[0] != '0' || regValue[1] != 'x' ||  sscanf(regValue, "%x", &value))
+    if(regValue[0] != '0' || regValue[1] != 'x' || !sscanf(regValue, "%x", &value))
     {
-	WARNING_MSG("Second parameter must be a hexadecimel number (starting with 0x)\n");
+	WARNING_MSG("Second parameter must be a hexadecimal number (starting with 0x)\n");
 	return 2;
     }
 
@@ -80,9 +80,11 @@ int parseLr( mips * pMips,  char * paramStr )
 
     if(index > 31)
     {
-	WARNING_MSG("This register does not exist\n");
+	WARNING_MSG("This register does not exist");
 	return 2;
     }
+
+    DEBUG_MSG("Registre : '%s', valeur : '%#x'", regName, value);
 
     return executeLr(index, value, pMips); // change register value
 }

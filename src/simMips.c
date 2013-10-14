@@ -219,7 +219,7 @@ int  acquire_line(FILE *fp, char * input) {
  ret[strlen(ret)-1] = '\0';
  }
     }
-    DEBUG_MSG("Ligne acquise '%s'\n", input); /* macro DEBUG_MSG : uniquement si compil en mode DEBUG_MSG */
+    DEBUG_MSG("Ligne acquise '%s'", input); /* macro DEBUG_MSG : uniquement si compil en mode DEBUG_MSG */
     return 0;
 }
 
