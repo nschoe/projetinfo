@@ -6,11 +6,17 @@
 int executeDa( mips * pMips, uint addr, uint nb )
 {
     uint i;
+    int overflow = 0;
 
     for( i = 0; i < nb; i++ )
     {
-	// Set to display on 10 because '0x' takes 2 and we want to display on 8 digits
-	printf( "%#x:\t%#010x\n", addr+i, 0xf ); // prints f for the moment
+	if( !overflow && addr + i < pMips->startData )
+	    printf( "%#x:\t%08x\n", addr+i, *(pMips->memText + i) );
+	else if( !overflow )
+	{
+	    overflow = 1;
+	    WARNING_MSG( "%#x not in text segment (no assembly code to display !\n", addr + i );
+	}
     }
 
     return CMD_OK_RETURN_VALUE;

@@ -19,9 +19,15 @@ typedef struct
     reg regLO;           // the lower LO register
 
     // Memory definition (size allocated dynamically)
-    void * memText;
-    void * memBss;
-    void * memData;
+    unsigned char * memText;
+    unsigned char * memBss;
+    unsigned char * memData;
+
+    // First elements in MIPS memory (size of segment)
+    uint startText;
+    uint startBss;
+    uint startData;
+
 } mips;
 
 #endif
