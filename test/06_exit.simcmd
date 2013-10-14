@@ -1,5 +1,0 @@
-#test la comande exit
-
-testcmd 0x9
-exit
-testcmd 0x8 #ne devrait pas tre execute

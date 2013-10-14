@@ -62,7 +62,7 @@ int parseDr( mips * pMips, char * paramStr )
 	    else if(!strcmp(regName, "LO"))
 		index = -3;
 	}
-	else if(regName[1] > 0x30 && regName[1] < 0x39)
+	else if(regName[1] >= 0x30 && regName[1] <= 0x39)
 	    sscanf(regName + 1, "%d", &index);
         for(i = 0; i < 32; i++)
 	{
