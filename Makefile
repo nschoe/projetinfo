@@ -47,7 +47,7 @@ release : $(OBJ_RLS)
 	$(CC) $< $(CFLAGS_DBG) -c -o $(basename $<).dbg.o
 
 clean : 
-	$(RM) $(TARGET) perso hash_cmd.o $(SRCDIR)/*.o $(GARBAGE)
+	$(RM) $(TARGET) perso *.o $(SRCDIR)/*.o $(GARBAGE)
 
 tarball : 
 	make clean 
