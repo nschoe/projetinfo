@@ -4,7 +4,28 @@
 
 int executeLm( mips * pMips, uint addr, uint value )
 {
-    printf( "Wrote %#x at location %#x.\n", value, addr );
+    char seg[10];
+
+    if( addr < pMips->startData )
+    {
+	// addr in Text
+	*(pMips->memText + addr) = value;
+	strcpy(seg, ".text");
+    }
+    else if( addr < pMips->startBss )
+    {
+	// addr in data
+	*(pMips->memData + (addr - pMips->startData)) = value;
+	strcpy( seg, ".data" );
+    }
+    else
+    {
+	// addr in Bss
+	*(pMips->memBss + (addr - pMips->startBss)) = value;
+	strcpy( seg, ".bss" );
+    }
+    
+    printf( "Wrote %#x at location %#x (segment %s).\n", value, addr, seg );
 
     return CMD_OK_RETURN_VALUE;
 }

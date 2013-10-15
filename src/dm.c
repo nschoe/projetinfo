@@ -88,19 +88,19 @@ int parseDm( mips * pMips, char * paramStr )
     // First check for addr:nbBytes
     if( 2 == sscanf( paramStr, "%x:%d", &v1, &v2 ) )
     {
-	printf( "Format is addr:nyBytes : %#x:%d\n", v1, v2 );
+//	printf( "Format is addr:nyBytes : %#x:%d\n", v1, v2 );
 	executeDmNb( pMips, v1, v2 );
     }
     // Then check for addr1~addr2
     else if( 2 == sscanf( paramStr, "%x~%x", &v1, &v2 ) )
     {
-	printf( "Format is addr1~addr2 : %#x~%#x\n", v1, v2 );
+//	printf( "Format is addr1~addr2 : %#x~%#x\n", v1, v2 );
 	executeDmRange( pMips, v1, v2 );
     }
     // Then only left is addr
     else if( 1 == sscanf( paramStr, "%x", &v1 ) )
     {
-	printf( "Format is addr : %#x\n", v1 );
+//	printf( "Format is addr : %#x\n", v1 );
 	executeDmDirect( pMips, v1 );
     }
     // Not a good format
