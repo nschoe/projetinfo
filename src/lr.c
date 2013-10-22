@@ -84,7 +84,7 @@ int parseLr( mips * pMips,  char * paramStr )
 	return 2;
     }
 
-    DEBUG_MSG("Registre : '%s', valeur : '%#x'", regName, value);
+    fprintf(stdout, "CMD LOAD REGISTER %s WITH %#x\n", regName, value);
 
     return executeLr(index, value, pMips); // change register value
 }
