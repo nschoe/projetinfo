@@ -70,7 +70,7 @@ int parseLr( mips * pMips,  char * paramStr )
 	    index = -3;
     }
 
-    if(regName[1] > 0x30 && regName[1] < 0x39)
+    if(regName[1] >= 0x30 && regName[1] <= 0x39)
 	sscanf(regName + 1, "%d", &index);
     for(i = 0; i < 32; i++)
     {
