@@ -5,7 +5,7 @@ DOXYGEN=`which doxygen`
 TAR=`which tar` -czvf
 
 SRCDIR=src
-INCDIR= -I include
+INCDIR= -Iinclude
 
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 CFLAGS_RLS=$(CFLAGS)
@@ -29,12 +29,12 @@ debug   : $(OBJ_DBG)
 release : $(OBJ_RLS)
 	$(LD) $^ $(LFLAGS) -o simMips
 
-mips-load : $(OBJ_RLS)
-	$(LD) $^ -o $@ $(LFLAGS)
+mips-load : mipself_test.rls.o mipself_test.rls.o
+	$(LD) $^ -o $@ $(LFLAGS) $(INCDIR)
 
 
-mips-load-test : $(OBJ_DBG)
-	$(LD) $^ -o $@ $(LFLAGS)
+mips-load-test : mipself_test.dbg.o mipself_test.dbg.o
+	$(LD) $^ -o $@ $(LFLAGS) $(INCDIR)
 
 %.rls.o : %.c
 	$(CC) $< $(CFLAGS) $(CFLAGS_RLS) -c -o $(basename $<).rls.o

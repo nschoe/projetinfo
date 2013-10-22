@@ -18,7 +18,7 @@ int main (int argc, char *argv[]) {
     SectionELF *dataSection;
     SectionELF *bssSection;
 
-    if ((argc < 2) || (argc > 2)) {
+    if (argc != 2) {
         printf("Usage: %s <fichier elf> \n", argv[0]);
         exit(1);
     }
