@@ -26,6 +26,7 @@ int parseLp( mips * pMips, char * args )
     if( NULL == pch )
     {
 	WARNING_MSG( "A filename must be given to the function 'lp'\n" );
+	return 2;
     }
     else
     {
@@ -34,9 +35,13 @@ int parseLp( mips * pMips, char * args )
 	if( NULL == h )
 	{
 	    WARNING_MSG( "The file \"%s\" doesn't exists or you don't have the permissions to read it.\n", pch );
+	    return 3;
 	}
 	else
+	{
 	    fclose( h );
+	    fprintf( stdout, "File \"%s\" could be opened.\n", pch );
+	}
 
 	// Do a second cut to check that only one file was given
 	pch = strtok (NULL, delim);
@@ -47,9 +52,8 @@ int parseLp( mips * pMips, char * args )
 	}
 
     }
-
     
-    return 0;
+    return CMD_OK_RETURN_VALUE;
 }
 
 int executeLp()

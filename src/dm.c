@@ -1,4 +1,5 @@
 #include "dm.h"
+#include "notify.h"
 
 // dm addr
 int executeDmDirect( mips * pMips, uint addr )

@@ -1,58 +1,55 @@
-
-TARGET=simMips
-
 CC=`which gcc`
 LD=`which gcc`
 RM=`which rm` -f
+DOXYGEN=`which doxygen`
+TAR=`which tar` -czvf
 
 SRCDIR=src
-INCDIR=include
-%TESTDIR=testing
-
-
-GARBAGE=*~ $(SRCDIR)/*~ $(INCDIR)/*~ $(TESTDIR)/*~ $(SRCDIR)/*.orig $(INCDIR)/*.orig
-
-INCLUDE=-I$(INCDIR)
-
-CFLAGS=-Wall $(INCLUDE)
-LFLAGS=-lreadline -lm -lcurses
+INCDIR= -I include
 
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 CFLAGS_RLS=$(CFLAGS)
+CFLAGS= -Wall $(INCDIR)
+LFLAGS= -lelf -lm -lreadline -lcurses
 
 SRC=$(wildcard $(SRCDIR)/*.c)
-
 OBJ_DBG=$(SRC:.c=.dbg.o)
 OBJ_RLS=$(SRC:.c=.rls.o)
 
-all : 
-	@echo ""
-	@echo "Usage:"
-	@echo ""
-	@echo "make debug   => build DEBUG   version"
-	@echo "make release => build RELEASE version"
-	@echo "make clean   => clean everything"
-	@echo "make tarball => produce archive .tar.gz in ../ directory"
+GARBAGE=*~ include/*~ *.orig include/*.orig src/*~ src/*.orig
+
+ARCHNAME=`date +%d-%m-%y-%H-%M`-`whoami`.tgz
+ARCHCONTENT=$(SRC) *file res include doc
+
+#all : mips-load-test mips-load
 
 debug   : $(OBJ_DBG)
-	$(LD) $^ $(LFLAGS) -o $(TARGET)
+	$(LD) $^ $(LFLAGS) -o simMips
 
 release : $(OBJ_RLS)
-	$(LD) $^ $(LFLAGS) -o $(TARGET)
+	$(LD) $^ $(LFLAGS) -o simMips
+
+mips-load : $(OBJ_RLS)
+	$(LD) $^ -o $@ $(LFLAGS)
+
+
+mips-load-test : $(OBJ_DBG)
+	$(LD) $^ -o $@ $(LFLAGS)
 
 %.rls.o : %.c
-	$(CC) $< $(CFLAGS_RLS) -c -o $(basename $<).rls.o
+	$(CC) $< $(CFLAGS) $(CFLAGS_RLS) -c -o $(basename $<).rls.o
 
 %.dbg.o : %.c
-	$(CC) $< $(CFLAGS_DBG) -c -o $(basename $<).dbg.o
+	$(CC) $< $(CFLAGS) $(CFLAGS_DBG) -c -o $(basename $<).dbg.o
 
 clean : 
-	$(RM) $(TARGET) perso *.o $(SRCDIR)/*.o $(GARBAGE)
+	$(RM) $(OBJ) $(GARBAGE) mips-load mips-load-test perso *.o simMips $(SRCDIR)/*.o
 
-tarball : 
-	make clean 
-	tar -czvf ../$(notdir $(PWD) )-`whoami`-`date +%d-%m-%H-%M`.tgz .
-	echo "Fichier archive ../simMips-`whoami`-`date +%d-%m-%H-%M`.tgz genere"
+documentation : 
+	$(DOXYGEN)
+
+archive : 
+	$(TAR) ../$(ARCHNAME) $(ARCHCONTENT) && mv ../$(ARCHNAME) .
 
 hash_cmd.o : src/hash_cmd.c
 	gcc -c src/hash_cmd.c $(CFLAGS) -o hash_cmd.o
