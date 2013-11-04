@@ -29,12 +29,17 @@ debug   : $(OBJ_DBG)
 release : $(OBJ_RLS)
 	$(LD) $^ $(LFLAGS) -o simMips
 
-mips-load : mipself_test.rls.o mipself_test.rls.o
-	$(LD) $^ -o $@ $(LFLAGS) $(INCDIR)
+#mips-load : mipself_test.rls.o mipself.rls.o
+#	$(LD) $^ -o $@ $(LFLAGS) $(CFLAGS_RLS) $(INCDIR)
 
+#mipself.dbg.o:	src/mipself.c
+#	$(CC) $^ $(CFLAGS) $(CFLAGS_DBG) $(INCDIR) -c -o mipself.dbg.o
 
-mips-load-test : mipself_test.dbg.o mipself_test.dbg.o
-	$(LD) $^ -o $@ $(LFLAGS) $(INCDIR)
+#mipself.rls.o:	src/mipself.c
+#	$(CC) $^ $(CFLAGS) $(CFLAGS_RLS) $(INCDIR) -c -o mipself.rls.o
+
+#mips-load-test : mipself_test.dbg.o mipself.dbg.o
+#	$(LD) $^ -o $@ $(LFLAGS) $(CFLAGS_DBG) $(INCDIR)
 
 %.rls.o : %.c
 	$(CC) $< $(CFLAGS) $(CFLAGS_RLS) -c -o $(basename $<).rls.o
@@ -43,7 +48,7 @@ mips-load-test : mipself_test.dbg.o mipself_test.dbg.o
 	$(CC) $< $(CFLAGS) $(CFLAGS_DBG) -c -o $(basename $<).dbg.o
 
 clean : 
-	$(RM) $(OBJ) $(GARBAGE) mips-load mips-load-test perso *.o simMips $(SRCDIR)/*.o
+	$(RM) $(OBJ) $(GARBAGE) perso *.o simMips $(SRCDIR)/*.o
 
 documentation : 
 	$(DOXYGEN)
