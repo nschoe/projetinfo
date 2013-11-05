@@ -11,6 +11,10 @@ mips initMips( const char * name, const int sizeText, const int sizeData, const 
     {
 	ERROR_MSG( "Failed allocating space for mips name !\n" );
     }
+    else
+    {
+	strcpy( uP.name, name );
+    }
 
     // Memory initialization (random for now)
     uP.memText = (unsigned char *) malloc( sizeText * 4096 * sizeof( char ) );
@@ -25,9 +29,9 @@ mips initMips( const char * name, const int sizeText, const int sizeData, const 
     if( NULL == uP.memBss )
 	ERROR_MSG( "Failed allocating space for bss segment !\n" );
 
-    uP.startText = 0;
-    uP.startData = 4096 * sizeText;
-    uP.startBss = uP.startData + 4096 * sizeData;
+    uP.sizeText = sizeText;
+    uP.sizeData = sizeData;
+    uP.sizeBss = sizeBss;
 
     return uP;
 }

@@ -6,22 +6,22 @@ int executeLm( mips * pMips, uint addr, uint value )
 {
     char seg[10];
 
-    if( addr < pMips->startData )
+    if( addr < pMips->sizeText*4096 )
     {
 	// addr in Text
 	*(pMips->memText + addr) = value;
 	strcpy(seg, ".text");
     }
-    else if( addr < pMips->startBss )
+    else if( addr < (pMips->sizeText + pMips->sizeData)*4096 )
     {
 	// addr in data
-	*(pMips->memData + (addr - pMips->startData)) = value;
+	*(pMips->memData + (addr - pMips->sizeText*4096)) = value;
 	strcpy( seg, ".data" );
     }
-    else
+    else if( addr < (pMips->sizeText + pMips->sizeData + pMips->sizeBss)*4096 )
     {
 	// addr in Bss
-	*(pMips->memBss + (addr - pMips->startBss)) = value;
+	*(pMips->memBss + (addr - (pMips->sizeText + pMips->sizeData)*4096)) = value;
 	strcpy( seg, ".bss" );
     }
     

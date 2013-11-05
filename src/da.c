@@ -10,12 +10,13 @@ int executeDa( mips * pMips, uint addr, uint nb )
 
     for( i = 0; i < nb; i++ )
     {
-	if( !overflow && addr + i < pMips->startData )
+	if( !overflow && addr + i < pMips->sizeText*4096 )
 	    printf( "%#x:\t%08x\n", addr+i, *(pMips->memText + i) );
 	else if( !overflow )
 	{
 	    overflow = 1;
 	    WARNING_MSG( "%#x not in text segment (no assembly code to display !\n", addr + i );
+	    break;
 	}
     }
 
@@ -35,17 +36,28 @@ int parseDa( mips * pMips, char * args )
     //da addr:nb
     if( 2 == sscanf( args, "%x:%d", &addr, &nbInstructions ) )
     {
-	executeDa( pMips, addr, nbInstructions );
+	if( 0 != addr % 4 )
+	{
+	    WARNING_MSG( "Careful : instructions are aligned on addresses that are multiple of 4, %#x is not.\n", addr );
+	}
+	else
+	    executeDa( pMips, addr, nbInstructions );
     }
     // da addr
     else if( 1 == sscanf( args, "%x", &addr ) )
     {
-	executeDa( pMips, addr, 1 );
+	if( 0 != addr % 4 )
+	{
+	    WARNING_MSG( "Careful : instructions are aligned on addresses that are multiple of 4, %#x is not.\n", addr );
+	}
+	else
+	    executeDa( pMips, addr, 1 );
     }
     else
     {
 	WARNING_MSG( "Usage : da addr | da addr:nb where addr is a hexadecimal memory address and nb is a decimal number of instructions.\n" );
     }
+    
 
     return 0;
 }

@@ -23,10 +23,10 @@ typedef struct
     unsigned char * memBss;
     unsigned char * memData;
 
-    // First elements in MIPS memory (size of segment)
-    uint startText;
-    uint startBss;
-    uint startData;
+    // Sizes of segments in the MIPS (in multiples of 4096 bytes)
+    int sizeText;
+    int sizeBss;
+    int sizeData;
 
 } mips;
 
