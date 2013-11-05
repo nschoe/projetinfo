@@ -35,6 +35,7 @@
 #include "mips.h"
 #include "hash_cmd.h"
 #include "initMips.h"
+#include "mipself.h"
 
 /* prompt du mode shell interactif */
 #define PROMPT_STRING "SimMipsShell : > "
@@ -242,6 +243,7 @@ int main ( int argc, char *argv[] ) {
     FILE *fp = NULL; /* le flux dans lequel les commande seront lues : stdin (mode shell) ou un fichier */
     mips uP;
 
+
     if ( argc > 2 ) {
         usage_ERROR_MSG( argv[0] );
         exit( EXIT_FAILURE );
@@ -252,7 +254,8 @@ int main ( int argc, char *argv[] ) {
     }
 
     // Mips initialization
-    uP = initMips( "bob", 1, 1, 1 );
+    uP = initMips( "bob", 1, 2, 3 );
+    readELF( argv[1], uP );
 
     /*par defaut : mode shell interactif */
     fp = stdin;

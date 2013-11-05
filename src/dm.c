@@ -4,20 +4,24 @@
 // dm addr
 int executeDmDirect( mips * pMips, uint addr )
 {    
-    if( addr < pMips->startData )
+    if( addr < pMips->sizeText*4096 )
     {
 	// addr in Text
 	printf( "%#x:\t%02x\n", addr, *(pMips->memText + addr) );
     }
-    else if( addr < pMips->startBss )
+    else if( addr < (pMips->sizeText + pMips->sizeData)*4096 )
     {
 	// addr in data
-	printf( "%#x:\t%02x\n", addr, *(pMips->memData + (addr - pMips->startData)) );
+	printf( "%#x:\t%02x\n", addr, *(pMips->memData + (addr - pMips->sizeText*4096)) );
+    }
+    else if( addr < (pMips->sizeText + pMips->sizeData + pMips->sizeBss)*4096)
+    {
+	// addr in Bss
+	printf( "%#x:\t%02x\n", addr, *(pMips->memBss + (addr - (pMips->sizeText + pMips->sizeData)*4096)) );
     }
     else
     {
-	// addr in Bss
-	printf( "%#x:\t%02x\n", addr, *(pMips->memBss + (addr - pMips->startBss)) );
+	WARNING_MSG( "Address %#x is out of memory !\n", addr );
     }
     
     return CMD_OK_RETURN_VALUE;
@@ -39,20 +43,24 @@ int executeDmRange( mips * pMips, uint from, uint to )
 	    printf( "%#x:\t", c );
 
 	// Display memory content
-	if( c < pMips->startData )
+	if( c < pMips->sizeText*4096 )
 	{
 	    // addr in Text
 	    printf( "%02x", *(pMips->memText + c) );
 	}
-	else if( c < pMips->startBss )
+	else if( c < (pMips->sizeText + pMips->sizeData)*4096 )
 	{
 	    // addr in data
-	    printf( "%02x", *(pMips->memData + (c - pMips->startData)) );
+	    printf( "%02x", *(pMips->memData + (c - pMips->sizeText*4096)) );
+	}
+	else if( (pMips->sizeText + pMips->sizeData + pMips->sizeBss)*4096 )
+	{
+	    // addr in Bss
+	    printf( "%02x", *(pMips->memBss + *(pMips->memBss + (c - (pMips->sizeText + pMips->sizeData)*4096))) );
 	}
 	else
 	{
-	    // addr in Bss
-	    printf( "%02x", *(pMips->memBss + (c - pMips->startBss)) );
+	    WARNING_MSG( "Address %#x is out of memory !\n", c );
 	}
 	
 	// Decide whether to display a space or a newline
