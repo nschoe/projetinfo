@@ -1,0 +1,23 @@
+ADD R rd, rs, rt
+ADDI I rs, rt, immediate
+AND R rd, rs, rt
+BEQ I rs, rt, offset
+BGTZ I rs, offset
+BLEZ I rs, offset
+BNE I rs, rt, offset
+DIV R rs, rt
+J J target
+JAL J target
+JR R rs
+LUI I rt, immediate
+LW I rt, offset
+MFHI R rd
+MFLO R rd
+MULT R rs, rt
+NOP R
+OR R rd, rs, rt
+ROTR R rd, rt, sa
+SLL R rd, rt, sa
+SLT R rd, rs, rt
+SRL R rd, rt, sa
+A finir
