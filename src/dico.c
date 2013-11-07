@@ -24,7 +24,8 @@ int loadDico(mips * pMips)
 	fscanf(dictionnary, "%s", command);
 	pMips->dicoR[i].name = calloc(strlen(command), sizeof(char));
 	strcpy(command, pMips->dicoR[i].name);
-	pMips->dicoR[i].order = 0;
+
+	order = 0;
 	while(fscanf(dictionnary, "%s", command))
 	{
 	    if(command[0] == 'r' && command[1] == 'd')
@@ -36,9 +37,12 @@ int loadDico(mips * pMips)
 	    if(command[0] == 's' && command[1] == 'a')
 		order = order*10 + 4;
 	}
+
+	pMips->dicoR[i].order = 0;
 	while(order != 0)
 	{
-	    pMips->dicoJ[i].order = pMips->dicoJ[i].order*10 + order - order/10;
+	    pMips->dicoR[i].order *= 10;
+	    pMips->dicoR[i].order += order - (order/10)*10;
 	    order /= 10;
 	}
     }
@@ -50,7 +54,8 @@ int loadDico(mips * pMips)
 	fscanf(dictionnary, "%s", command);
 	pMips->dicoI[i].name = calloc(strlen(command), sizeof(char));
 	strcpy(command, pMips->dicoI[i].name);
-	pMips->dicoI[i].order = 0;
+
+	order = 0;
 	while(fscanf(dictionnary, "%s", command))
 	{
 	    if(command[0] == 'r' && command[1] == 's')
@@ -62,9 +67,12 @@ int loadDico(mips * pMips)
 	    if(strcmp("offset", command) || strcmp("immediate", command) || strcmp("offset(base)", command))
 		order = order*10 + 3;
 	}
+
+	pMips->dicoI[i].order = 0;
 	while(order != 0) // inverting order
 	{
-	    pMips->dicoJ[i].order = pMips->dicoJ[i].order*10 + order - order/10;
+	    pMips->dicoI[i].order *= 10;
+	    pMips->dicoI[i].order += order - (order/10)*10;
 	    order /= 10;
 	}
     }
@@ -76,15 +84,19 @@ int loadDico(mips * pMips)
 	fscanf(dictionnary, "%s", command);
 	pMips->dicoJ[i].name = calloc(strlen(command), sizeof(char));
 	strcpy(command, pMips->dicoJ[i].name);
-	pMips->dicoJ[i].order = 0;
+
+	order = 0;
 	while(fscanf(dictionnary, "%s", command))
 	{
 	    if(strcmp("target", command))
-		order = order*10 + 1;
+		order = 1;
 	}
+
+	pMips->dicoJ[i].order = 0;
 	while(order != 0)
 	{
-	    pMips->dicoJ[i].order = pMips->dicoJ[i].order*10 + order - order/10;
+	    pMips->dicoJ[i].order *= 10;
+	    pMips->dicoJ[i].order += order - (order/10)*10;
 	    order /= 10;
 	}
     }

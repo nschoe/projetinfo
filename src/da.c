@@ -20,9 +20,20 @@ int printAssembler( mips * pMips, uint value )
 	param[3] = cpyValue >> 6;
 	cpyValue = cpyValue - (param[3] << 6);
 
-	if(!param[0] && !param[1] && !param[2] && !param[3] && cpyValue)
+	if(!param[0] && !param[1] && !param[2] && !param[3] && !cpyValue)
 	{
 	    printf("NOP\n");
+	    return 0;
+	}
+
+	if(cpyValue == 0x2)
+	{
+	    if(param[0] == 0x1)
+	    {
+		printf("ROTR %x %x %x\n", param[3], param[2], param[4]);
+		return 0;
+	    }
+	    printf("SRL %x %x %x\n", param[3], param[2], param[4]);
 	    return 0;
 	}
 
@@ -30,23 +41,13 @@ int printAssembler( mips * pMips, uint value )
 	{
 	    if(pMips->dicoR[i].op_code == cpyValue)
 	    {
-		if(cpyValue == 000010 && (value >> 22) == 0)
-		{
-		    printf("SRL %d, %d, %d,\n", param[3], param[2], param[4]);
-		    return 0;
-		}
-		if(cpyValue == 000010 && (value >> 22) == 1)
-		{
-		    printf("ROTR %d, %d, %d,\n", param[3], param[2], param[4]);
-		    return 0;
-		}
 		printf("%s", pMips->dicoR[i].name);
 		cpyOrder = pMips->dicoR[i].order;
 		while(cpyOrder != 0)
 		{		
-		    j = cpyOrder - cpyOrder/10;
+		    j = cpyOrder - (cpyOrder/10)*10;
 		    cpyOrder /= 10;
-		    printf("%d", param[j]);
+		    printf(" %x", param[j]);
 		}
 		printf("\n");
 		return 0;
@@ -55,18 +56,43 @@ int printAssembler( mips * pMips, uint value )
     }
     else
     {
+	cpyValue = value - (cpyValue << 26);
 	for(i = 0; i < pMips->sizeJ; i++)
 	{
+	    if(pMips->dicoJ[i].op_code == cpyValue)
+	    {
+		printf("%s %x\n", pMips->dicoJ[i].name, cpyValue);
+		return 0;
+	    }
 	}
 
-	cpyValue = cpyValue - (param[0] << 26);
-	param[1] = cpyValue >> 21;
-	cpyValue = cpyValue - (param[1] << 21);
+	param[0] = cpyValue >> 21;
+	cpyValue = cpyValue - (param[0] << 21);
 	param[1] = cpyValue >> 16;
-	cpyValue = cpyValue - (param[0] << 16);
+	cpyValue = cpyValue - (param[1] << 16);
+	param[2] = cpyValue;
+
+	if(cpyValue == 0x2B)
+	{
+	    printf("SW %x %x(%x)\n", param[1], param[2], param[0]);
+	    return 0;
+	}
 
 	for(i = 0; i < pMips->sizeI; i++)
 	{
+	    if(pMips->dicoI[i].op_code == cpyValue)
+	    {
+		printf("%s", pMips->dicoI[i].name);
+		cpyOrder = pMips->dicoI[i].order;
+		while(cpyOrder != 0)
+		{		
+		    j = cpyOrder - (cpyOrder/10)*10;
+		    cpyOrder /= 10;
+		    printf(" %x", param[j]);
+		}
+		printf("\n");
+		return 0;
+	    }
 	}
     }
 
