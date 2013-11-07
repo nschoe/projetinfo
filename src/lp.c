@@ -62,9 +62,7 @@ int executeLp( mips * uP, const char * filename )
 
     readELF( filename, uP );
 
-    printf( "%s's content\n-------------\n", uP->name );
-
-    printf( "size : %d\n", uP->sizeText );
+    printf( "File \"%s\" successfully loaded.\n", filename );
 
     return 0;
 }
