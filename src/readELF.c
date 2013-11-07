@@ -20,6 +20,9 @@ int readELF( const char * filename, mips * uP )
     textSection = (SectionELF *) malloc( sizeof( SectionELF ) );
     dataSection = (SectionELF *) malloc( sizeof( SectionELF ) );
     bssSection = (SectionELF *) malloc( sizeof( SectionELF ) );
+    textSection->data = NULL;
+    dataSection->data = NULL;
+    bssSection->data = NULL;
 
     // Parsing ELF file with mipsloader function
     if( mipsloader( filename, textSection, dataSection, bssSection ) )

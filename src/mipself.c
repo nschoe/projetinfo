@@ -415,7 +415,6 @@ static void loadZone(MemZone *Zone, WORD from) {
     Zone->mem_start = ((from % TAILLESEGMENT)==0)?from:(((from/TAILLESEGMENT)+1)*TAILLESEGMENT) ;
 
     INFO_MSG("Chargement section %s a l'adresse %#x\n",Zone->name, Zone->mem_start) ;
-
     // Taille des donnees:
     data = elf_getdata(Zone->scn, NULL) ;
     Zone->size = data->d_size ;
@@ -429,7 +428,6 @@ static void loadZone(MemZone *Zone, WORD from) {
     strcpy(Zone->exportSection->name, Zone->name);
     Zone->exportSection->size = (WORD) Zone->size;
     Zone->exportSection->startAddress = (WORD) Zone->mem_start;
-
 
     // Lecture des donnees binaires a partir du fichier elf
     if (Zone->exportSection->data)
