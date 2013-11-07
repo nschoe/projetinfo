@@ -2,9 +2,14 @@
 
 int loadDico(mips * pMips)
 {
-    FILE * dictionnary = fopen("dico.txt", "r");
+    FILE * dictionnary = NULL;
     int i, order = 0;
     char command[15];
+    char ligne[256];
+
+    dictionnary = fopen("dico.txt", "r");
+    if(!dictionnary)
+	return 1;
 
     fscanf(dictionnary, "%d", &(pMips->sizeR));
     pMips->dicoR = calloc(pMips->sizeR, sizeof(instr));
@@ -15,7 +20,7 @@ int loadDico(mips * pMips)
     fscanf(dictionnary, "%d", &(pMips->sizeJ));
     pMips->dicoJ = calloc(pMips->sizeJ, sizeof(instr));
 
-    fgets(NULL, 256, dictionnary);
+    fgets(ligne, 256, dictionnary);
 
     for(i = 0; i < pMips->sizeR; i++)
     {

@@ -90,7 +90,6 @@ int printAssembler( mips * pMips, uint value )
 		    cpyOrder /= 10;
 		    printf(" %x", param[j]);
 		}
-		printf("\n");
 		return 0;
 	    }
 	}

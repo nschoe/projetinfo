@@ -37,6 +37,7 @@
 #include "initMips.h"
 #include "mipself.h"
 #include "readELF.h"
+#include "dico.h"
 
 /* prompt du mode shell interactif */
 #define PROMPT_STRING "SimMipsShell : > "
@@ -270,6 +271,9 @@ int main ( int argc, char *argv[] ) {
             exit( EXIT_FAILURE );
         }
     }
+
+    if(loadDico(&uP))
+	    ERROR_MSG("Failed to load dictionnary\n");
 
     /* boucle principale : lit puis execute une cmd en boucle */
     while ( 1 ) {
