@@ -11,6 +11,7 @@ int loadDico(mips * pMips)
     if(!dictionnary)
 	return 1;
 
+    // number of instructions
     fscanf(dictionnary, "%d", &(pMips->sizeR));
     pMips->dicoR = calloc(pMips->sizeR, sizeof(instr));
 
@@ -28,24 +29,25 @@ int loadDico(mips * pMips)
 	pMips->dicoR[i].name = calloc(strlen(command) + 1, sizeof(char));
 	strcpy(pMips->dicoR[i].name, command);
 
+	// coding the order of instruction
 	order = 0;
 	j = 0;
 	fgets(ligne, 256, dictionnary);
-	while(ligne[j] != '\n')
+	while(ligne[j] != '\n') // end of line
 	{
 	    if(ligne[j] == 'r')
 	    {
 		if(ligne[j+1] == 's')
-		    order = order*10 + 1;
+		    order = order*10 + 1; // rs is the first parameter
 		if(ligne[j+1] == 't')
-		    order = order*10 + 2;
+		    order = order*10 + 2; // rt the second
 		if(ligne[j+1] == 'd')
-		    order = order*10 + 3;
+		    order = order*10 + 3; // rd the third
 		j++;
 	    }
 	    if(ligne[j] == 's' && ligne[j+1] == 'a')
 	    {
-		order = order*10 + 4;
+		order = order*10 + 4; // sa the fourth
 		j++;
 	    }
 	    j++;
