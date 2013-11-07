@@ -3,11 +3,11 @@
 int loadDico(mips * pMips)
 {
     FILE * dictionnary = NULL;
-    int i, order = 0;
+    int i, j, order = 0;
     char command[15];
     char ligne[256];
 
-    dictionnary = fopen("dico.txt", "r");
+    dictionnary = fopen("src/dico.txt", "r");
     if(!dictionnary)
 	return 1;
 
@@ -24,23 +24,31 @@ int loadDico(mips * pMips)
 
     for(i = 0; i < pMips->sizeR; i++)
     {
-	fscanf(dictionnary, "%x", &(pMips->dicoR[i].op_code));
-	fscanf(dictionnary, "%c", &(pMips->dicoR[i].type));
-	fscanf(dictionnary, "%s", command);
-	pMips->dicoR[i].name = calloc(strlen(command), sizeof(char));
-	strcpy(command, pMips->dicoR[i].name);
+	fscanf(dictionnary, "%x %c %s", &(pMips->dicoR[i].op_code), &(pMips->dicoR[i].type), command);
+	pMips->dicoR[i].name = calloc(strlen(command) + 1, sizeof(char));
+	strcpy(pMips->dicoR[i].name, command);
 
 	order = 0;
-	while(fscanf(dictionnary, "%s", command))
+	j = 0;
+	fgets(ligne, 256, dictionnary);
+	while(ligne[j] != '\n')
 	{
-	    if(command[0] == 'r' && command[1] == 'd')
-		order = order*10 + 3;
-	    if(command[0] == 'r' && command[1] == 's')
-		order = order*10 + 2;
-	    if(command[0] == 'r' && command[1] == 't')
-		order = order*10 + 1;
-	    if(command[0] == 's' && command[1] == 'a')
+	    if(ligne[j] == 'r')
+	    {
+		if(ligne[j+1] == 's')
+		    order = order*10 + 1;
+		if(ligne[j+1] == 't')
+		    order = order*10 + 2;
+		if(ligne[j+1] == 'd')
+		    order = order*10 + 3;
+		j++;
+	    }
+	    if(ligne[j] == 's' && ligne[j+1] == 'a')
+	    {
 		order = order*10 + 4;
+		j++;
+	    }
+	    j++;
 	}
 
 	pMips->dicoR[i].order = 0;
@@ -54,23 +62,34 @@ int loadDico(mips * pMips)
 
     for(i = 0; i < pMips->sizeI; i++)
     {
-	fscanf(dictionnary, "%x", &(pMips->dicoI[i].op_code));
-	fscanf(dictionnary, "%c", &(pMips->dicoI[i].type));
-	fscanf(dictionnary, "%s", command);
-	pMips->dicoI[i].name = calloc(strlen(command), sizeof(char));
-	strcpy(command, pMips->dicoI[i].name);
+	fscanf(dictionnary, "%x %c %s", &(pMips->dicoI[i].op_code), &(pMips->dicoI[i].type), command);
+	pMips->dicoI[i].name = calloc(strlen(command) + 1, sizeof(char));
+	strcpy(pMips->dicoI[i].name, command);
 
 	order = 0;
-	while(fscanf(dictionnary, "%s", command))
+	j = 0;
+	fgets(ligne, 256, dictionnary);
+	while(ligne[j] != '\n')
 	{
-	    if(command[0] == 'r' && command[1] == 's')
-		order = order*10 + 2;
-	    if(command[0] == 'r' && command[1] == 't')
-		order = order*10 + 1;
-	    if(command[0] == 's' && command[1] == 'a')
-		order = order*10 + 4;
-	    if(strcmp("offset", command) || strcmp("immediate", command) || strcmp("offset(base)", command))
+	    if(ligne[j] == 'r')
+	    {
+		if(ligne[j+1] == 's')
+		    order = order*10 + 1;
+		if(ligne[j+1] == 't')
+		    order = order*10 + 2;
+		j++;
+	    }
+	    if(!strcmp("offset\n", ligne + j) || !strcmp("immediate\n", ligne + j) || !strcmp("offset(base)\n", ligne + j))
+	    {
 		order = order*10 + 3;
+		j++;
+	    }
+	    if(ligne[j] == 's' && ligne[j+1] == 'a')
+	    {
+		order = order*10 + 4;
+		j++;
+	    }
+	    j++;
 	}
 
 	pMips->dicoI[i].order = 0;
@@ -84,27 +103,17 @@ int loadDico(mips * pMips)
 
     for(i = 0; i < pMips->sizeJ; i++)
     {
-	fscanf(dictionnary, "%x", &(pMips->dicoJ[i].op_code));
-	fscanf(dictionnary, "%c", &(pMips->dicoJ[i].type));
-	fscanf(dictionnary, "%s", command);
-	pMips->dicoJ[i].name = calloc(strlen(command), sizeof(char));
-	strcpy(command, pMips->dicoJ[i].name);
-
-	order = 0;
-	while(fscanf(dictionnary, "%s", command))
-	{
-	    if(strcmp("target", command))
-		order = 1;
-	}
+	fscanf(dictionnary, "%x %c %s", &(pMips->dicoJ[i].op_code), &(pMips->dicoJ[i].type), command);
+	pMips->dicoJ[i].name = calloc(strlen(command) + 1, sizeof(char));
+	strcpy(pMips->dicoJ[i].name, command);
 
 	pMips->dicoJ[i].order = 0;
-	while(order != 0)
-	{
-	    pMips->dicoJ[i].order *= 10;
-	    pMips->dicoJ[i].order += order - (order/10)*10;
-	    order /= 10;
-	}
+	fgets(ligne, 256, dictionnary);
+	if(!strcmp(" target\n", ligne))
+	    pMips->dicoJ[i].order = 1;
     }
+
+    fclose(dictionnary);
 
     return 0;
 }

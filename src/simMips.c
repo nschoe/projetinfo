@@ -237,6 +237,7 @@ void usage_ERROR_MSG( char *command ) {
  * Programme principal
  */
 int main ( int argc, char *argv[] ) {
+    int i;// for test
     /* exemples d'utilisation des macros du fichier notify.h */
     INFO_MSG("Un message INFO_MSG : Debut du programme %s", argv[0]); /* macro INFO_MSG */
     WARNING_MSG("Un message WARNING_MSG !"); /* macro INFO_MSG */
@@ -272,8 +273,11 @@ int main ( int argc, char *argv[] ) {
         }
     }
 
-//    if(loadDico(&uP))
-//	    ERROR_MSG("Failed to load dictionnary\n");
+    if(loadDico(&uP))
+	ERROR_MSG("Failed to load dictionnary\n");
+
+    scanf("%x", &i);
+    printAssembler(&uP, i);
 
     /* boucle principale : lit puis execute une cmd en boucle */
     while ( 1 ) {
