@@ -1,0 +1,27 @@
+13 8 2 // number of R, I, J instructions
+20 R ADD rd rs rt
+24 R AND rd rs rt
+1A R DIV rs rt
+08 R JR rs
+10 R MFHI rd
+12 R MFLO rd
+18 R MULT rs rt
+00 R NOP
+25 R OR rd rs rt
+02 R ROTR rd rt sa
+00 R SLL rd rt sa
+2A R SLT rd rs rt
+02 R SRL rd rt sa
+22 R SUB rd rs rt
+0C R SYSCALL
+26 R XOR rd rs rt
+08 I ADDI rs rt immediate
+04 I BEQ rs rt offset
+07 I BGTZ rs offset
+06 I BLEZ rs offset
+05 I BNE rs rt offset
+0F I LUI rt immediate
+23 I LW rt offset
+2B I SW rt offset(base)
+02 J J target
+03 J JAL target

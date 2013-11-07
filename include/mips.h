@@ -6,6 +6,15 @@ typedef unsigned int uint;
 // Register data type
 typedef uint reg;         // sizeof( unsigned int ) = 32
 
+// Instruction description
+typedef struct
+{
+    char* name; // name of instruction
+    char type; // R, I or J
+    int op_code; 
+    int order; // order of parameters
+} instr;
+
 // Architecture of the MIPS
 typedef struct
 {
@@ -28,6 +37,14 @@ typedef struct
     int sizeBss;
     int sizeData;
 
+    // Array of instruction by type
+    instr * dicoR;
+    instr * dicoI;
+    instr * dicoJ;
+
+    int sizeR;
+    int sizeI;
+    int sizeJ;
 } mips;
 
 #endif

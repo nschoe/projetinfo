@@ -8,6 +8,7 @@
 #include "notify.h"
 #include "mips.h"
 
+int printAssembler( mips *, uint );
 int executeDa( mips *, uint, uint );
 int parseDa( mips *, char * );
 
