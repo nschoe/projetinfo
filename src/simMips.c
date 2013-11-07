@@ -36,6 +36,7 @@
 #include "hash_cmd.h"
 #include "initMips.h"
 #include "mipself.h"
+#include "readELF.h"
 
 /* prompt du mode shell interactif */
 #define PROMPT_STRING "SimMipsShell : > "
@@ -254,8 +255,10 @@ int main ( int argc, char *argv[] ) {
     }
 
     // Mips initialization
-    uP = initMips( "bob", 1, 2, 3 );
-    readELF( argv[1], uP );
+    //uP = initMips( "bob", 1, 2, 3 );
+    // Give it a name :)
+    uP.name = (char *) malloc( 4 * sizeof( char ) );
+    uP.name = "bob";
 
     /*par defaut : mode shell interactif */
     fp = stdin;

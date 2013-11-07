@@ -5,6 +5,7 @@
 #include "notify.h"
 
 #include "lp.h"
+#include "readELF.h"
 
 /* Check that one and exactly one file argument has been given
    and that it exists and is readable
@@ -25,7 +26,7 @@ int parseLp( mips * pMips, char * args )
     // Check if we have one argument given
     if( NULL == pch )
     {
-	WARNING_MSG( "A filename must be given to the function 'lp'\n" );
+	WARNING_MSG( "Usage: lp filename\nwhere filename is an MIPS 32 ELF file.\n" );
 	return 2;
     }
     else
@@ -38,9 +39,9 @@ int parseLp( mips * pMips, char * args )
 	    return 3;
 	}
 	else
-	{
+	{	    
 	    fclose( h );
-	    fprintf( stdout, "File \"%s\" could be opened.\n", pch );
+	    executeLp( pMips, pch );
 	}
 
 	// Do a second cut to check that only one file was given
@@ -56,7 +57,14 @@ int parseLp( mips * pMips, char * args )
     return CMD_OK_RETURN_VALUE;
 }
 
-int executeLp()
+int executeLp( mips * uP, const char * filename )
 {
+
+    readELF( filename, uP );
+
+    printf( "%s's content\n-------------\n", uP->name );
+
+    printf( "size : %d\n", uP->sizeText );
+
     return 0;
 }
