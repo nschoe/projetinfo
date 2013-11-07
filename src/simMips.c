@@ -272,8 +272,8 @@ int main ( int argc, char *argv[] ) {
         }
     }
 
-    if(loadDico(&uP))
-	    ERROR_MSG("Failed to load dictionnary\n");
+//    if(loadDico(&uP))
+//	    ERROR_MSG("Failed to load dictionnary\n");
 
     /* boucle principale : lit puis execute une cmd en boucle */
     while ( 1 ) {

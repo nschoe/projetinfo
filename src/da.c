@@ -101,14 +101,21 @@ int printAssembler( mips * pMips, uint value )
 int executeDa( mips * pMips, uint addr, uint nb )
 {
     uint i;
+    uint instructionCode;
     int overflow = 0;
+    InstructionCode instruc;
 
     for( i = 0; i < nb; i++ )
     {
 	if( !overflow && addr + i < pMips->sizeText*4096 )
 	{
-	    printf( "%#x:\t%08x\t", addr+i, *(pMips->memText + i) );
-	    printAssembler(pMips, *(pMips->memText + i));
+	    //printf( "%#x:\t%#x\t", addr+i, *(pMips->memText + i) );
+	    instruc.c[0] = *(pMips->memText + i);
+	    instruc.c[1] = *(pMips->memText + i + 1);
+	    instruc.c[2] = *(pMips->memText + i + 2);
+	    instruc.c[3] = *(pMips->memText + i + 3);
+	    printf( "%#x:\t%#x\t", addr+i, instruc.i );
+	    //printAssembler(pMips, *(pMips->memText + i));
 	    printf("\n");
 	}
 	else if( !overflow )

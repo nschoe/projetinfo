@@ -12,4 +12,10 @@ int printAssembler( mips *, uint );
 int executeDa( mips *, uint, uint );
 int parseDa( mips *, char * );
 
+typedef union
+{
+    uint i;
+    unsigned char c[4];
+} InstructionCode;
+
 #endif

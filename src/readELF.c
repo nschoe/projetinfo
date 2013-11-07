@@ -50,11 +50,23 @@ int readELF( const char * filename, mips * uP )
     memcpy( uP->memData, dataSection->data, dataSection->size );
     memcpy( uP->memBss, bssSection->data, bssSection->size );
 
-    // Computes sizes (in multiple of 4096)
-    
+    // Computes sizes (in multiple of 4096)    
     uP->sizeText = (int) ceil( textSection->size / 4096.0 );
     uP->sizeData = (int) ceil( dataSection->size / 4096.0 );
     uP->sizeBss = (int) ceil( bssSection->size / 4096.0 );
+
+    // Clean up the sections returned by mips loader
+    free( textSection->name );
+    free( textSection->data );
+    free( textSection );
+    
+    free( dataSection->name );
+    free( dataSection->data );
+    free( dataSection );
+
+    free( bssSection->name );
+    free( bssSection->data );
+    free( bssSection );
 
     return 0;
 }
