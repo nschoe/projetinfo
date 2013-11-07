@@ -27,7 +27,7 @@ int printAssembler( mips * pMips, uint value )
 		printf("NOP\n");
 		return 0;
 	    }
-	    printf("SLL %x %x %x\n", param[2], param[1], param[3]);
+	    printf("SLL %d %d %d\n", param[2], param[1], param[3]);
 	    return 0;
 	}
 
@@ -35,10 +35,10 @@ int printAssembler( mips * pMips, uint value )
 	{
 	    if(param[0] == 0x1)
 	    {
-		printf("ROTR %x %x %x\n", param[2], param[1], param[3]);
+		printf("ROTR %d %d %d\n", param[2], param[1], param[3]);
 		return 0;
 	    }
-	    printf("SRL %x %x %x\n", param[2], param[1], param[3]);
+	    printf("SRL %d %d %d\n", param[2], param[1], param[3]);
 	    return 0;
 	}
 
@@ -52,7 +52,7 @@ int printAssembler( mips * pMips, uint value )
 		{		
 		    j = cpyOrder - (cpyOrder/10)*10;
 		    cpyOrder /= 10;
-		    printf(" %x", param[j - 1]);
+		    printf(" %d", param[j - 1]);
 		}
 		printf("\n");
 		return 0;
@@ -66,7 +66,7 @@ int printAssembler( mips * pMips, uint value )
 	{
 	    if(pMips->dicoJ[i].op_code == cpyValue)
 	    {
-		printf("%s %x\n", pMips->dicoJ[i].name, cpyValue);
+		printf("%s %#x\n", pMips->dicoJ[i].name, cpyValue);
 		return 0;
 	    }
 	}
@@ -80,7 +80,7 @@ int printAssembler( mips * pMips, uint value )
 
 	if(cpyValue == 0x2B)
 	{
-	    printf("SW %x %x(%x)\n", param[1], param[2], param[0]);
+	    printf("SW %d %d(%d)\n", param[1], param[2], param[0]);
 	    return 0;
 	}
 
@@ -94,7 +94,7 @@ int printAssembler( mips * pMips, uint value )
 		{		
 		    j = cpyOrder - (cpyOrder/10)*10;
 		    cpyOrder /= 10;
-		    printf(" %x", param[j - 1]);
+		    printf(" %d", param[j - 1]);
 		}
 		printf("\n");
 
@@ -126,7 +126,7 @@ int executeDa( mips * pMips, uint addr, uint nb )
 	    switchEndian( &instruc );
 
 	    printf( "%#x:\t%#x\t", addr+i, instruc.i );
-	    //printAssembler(pMips, *(pMips->memText + i));
+	    printAssembler(pMips, instruc.i);
 	    printf("\n");
 	}
 	else if( !overflow )

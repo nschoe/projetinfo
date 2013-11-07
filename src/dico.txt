@@ -15,7 +15,7 @@
 22 R SUB rd rs rt
 0C R SYSCALL
 26 R XOR rd rs rt
-08 I ADDI rs rt immediate
+08 I ADDI rt rs immediate
 04 I BEQ rs rt offset
 07 I BGTZ rs offset
 06 I BLEZ rs offset
