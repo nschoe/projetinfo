@@ -276,9 +276,6 @@ int main ( int argc, char *argv[] ) {
     if(loadDico(&uP))
 	ERROR_MSG("Failed to load dictionnary\n");
 
-    scanf("%x", &i);
-    printAssembler(&uP, i);
-
     /* boucle principale : lit puis execute une cmd en boucle */
     while ( 1 ) {
         char input[MAX_STR];
