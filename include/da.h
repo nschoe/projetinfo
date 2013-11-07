@@ -18,4 +18,6 @@ typedef union
     unsigned char c[4];
 } InstructionCode;
 
+void switchEndian( InstructionCode * );
+
 #endif

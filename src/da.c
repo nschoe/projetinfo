@@ -105,15 +105,18 @@ int executeDa( mips * pMips, uint addr, uint nb )
     int overflow = 0;
     InstructionCode instruc;
 
-    for( i = 0; i < nb; i++ )
+    for( i = 0; i < 4*nb; i += 4 )
     {
 	if( !overflow && addr + i < pMips->sizeText*4096 )
 	{
 	    //printf( "%#x:\t%#x\t", addr+i, *(pMips->memText + i) );
-	    instruc.c[0] = *(pMips->memText + i);
-	    instruc.c[1] = *(pMips->memText + i + 1);
-	    instruc.c[2] = *(pMips->memText + i + 2);
-	    instruc.c[3] = *(pMips->memText + i + 3);
+	    instruc.c[0] = *(pMips->memText + addr + i);
+	    instruc.c[1] = *(pMips->memText + addr + i + 1);
+	    instruc.c[2] = *(pMips->memText + addr + i + 2);
+	    instruc.c[3] = *(pMips->memText + addr + i + 3);
+
+	    switchEndian( &instruc );
+
 	    printf( "%#x:\t%#x\t", addr+i, instruc.i );
 	    //printAssembler(pMips, *(pMips->memText + i));
 	    printf("\n");
@@ -166,4 +169,17 @@ int parseDa( mips * pMips, char * args )
     
 
     return 0;
+}
+
+void switchEndian( InstructionCode * ins )
+{
+    unsigned char temp;
+
+    temp = ins->c[0];
+    ins->c[0] = ins->c[3];
+    ins->c[3] = temp;
+
+    temp = ins->c[1];
+    ins->c[1] = ins->c[2];
+    ins->c[2] = temp;
 }
