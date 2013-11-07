@@ -11,14 +11,14 @@ int printAssembler( mips * pMips, uint value )
     if(!cpyValue)
     {
 	cpyValue = value;
-	param[0] = cpyValue >> 21;
+	param[0] = cpyValue >> 21; // 21-25 bits correspond to the first parameter
 	cpyValue = cpyValue - (param[0] << 21);
-	param[1] = cpyValue >> 16;
+	param[1] = cpyValue >> 16; // 16-20 bits correspond to the second parameter
 	cpyValue = cpyValue - (param[1] << 16);
-	param[2] = cpyValue >> 11;
+	param[2] = cpyValue >> 11; // 11-15 bits correspond to the third parameter
 	cpyValue = cpyValue - (param[2] << 11);
-	param[3] = cpyValue >> 6;
-	cpyValue = cpyValue - (param[3] << 6);
+	param[3] = cpyValue >> 6; // 6-10 bits correspond to the last parameter
+	cpyValue = cpyValue - (param[3] << 6); // 0-5 coding the op_code
 
 	if(!cpyValue)
 	{
@@ -71,11 +71,11 @@ int printAssembler( mips * pMips, uint value )
 	    }
 	}
 
-	param[0] = cpyValue >> 21;
+	param[0] = cpyValue >> 21; // 21-25 bits correspond to the first parameter
 	cpyValue = cpyValue - (param[0] << 21);
-	param[1] = cpyValue >> 16;
+	param[1] = cpyValue >> 16;  // 16-20 bits correspond to the second parameter
 	cpyValue = cpyValue - (param[1] << 16);
-	param[2] = cpyValue;
+	param[2] = cpyValue;  // 0-15 bits correspond to offset
 	cpyValue = value >> 26;
 
 	if(cpyValue == 0x2B)
