@@ -1,4 +1,4 @@
-13 8 2 // number of R, I, J instructions
+16 8 2 // number of R, I, J instructions
 20 R ADD rd rs rt
 24 R AND rd rs rt
 1A R DIV rs rt

@@ -10,7 +10,7 @@ int printAssembler( mips * pMips, uint value )
 
     if(!cpyValue)
     {
-	cpyValue = value - (cpyValue << 26);
+	cpyValue = value;
 	param[0] = cpyValue >> 21;
 	cpyValue = cpyValue - (param[0] << 21);
 	param[1] = cpyValue >> 16;
@@ -20,9 +20,14 @@ int printAssembler( mips * pMips, uint value )
 	param[3] = cpyValue >> 6;
 	cpyValue = cpyValue - (param[3] << 6);
 
-	if(!param[0] && !param[1] && !param[2] && !param[3] && !cpyValue)
+	if(!cpyValue)
 	{
-	    printf("NOP\n");
+	    if(!param[0] && !param[1] && !param[2] && !param[3])
+	    {
+		printf("NOP\n");
+		return 0;
+	    }
+	    printf("SLL %x %x %x\n", param[2], param[1], param[3]);
 	    return 0;
 	}
 
@@ -30,10 +35,10 @@ int printAssembler( mips * pMips, uint value )
 	{
 	    if(param[0] == 0x1)
 	    {
-		printf("ROTR %x %x %x\n", param[3], param[2], param[4]);
+		printf("ROTR %x %x %x\n", param[2], param[1], param[3]);
 		return 0;
 	    }
-	    printf("SRL %x %x %x\n", param[3], param[2], param[4]);
+	    printf("SRL %x %x %x\n", param[2], param[1], param[3]);
 	    return 0;
 	}
 
@@ -47,7 +52,7 @@ int printAssembler( mips * pMips, uint value )
 		{		
 		    j = cpyOrder - (cpyOrder/10)*10;
 		    cpyOrder /= 10;
-		    printf(" %x", param[j]);
+		    printf(" %x", param[j - 1]);
 		}
 		printf("\n");
 		return 0;
@@ -71,6 +76,7 @@ int printAssembler( mips * pMips, uint value )
 	param[1] = cpyValue >> 16;
 	cpyValue = cpyValue - (param[1] << 16);
 	param[2] = cpyValue;
+	cpyValue = value >> 26;
 
 	if(cpyValue == 0x2B)
 	{
@@ -88,8 +94,10 @@ int printAssembler( mips * pMips, uint value )
 		{		
 		    j = cpyOrder - (cpyOrder/10)*10;
 		    cpyOrder /= 10;
-		    printf(" %x", param[j]);
+		    printf(" %x", param[j - 1]);
 		}
+		printf("\n");
+
 		return 0;
 	    }
 	}
