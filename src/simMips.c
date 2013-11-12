@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 /* la librairie readline */
 #include <readline/readline.h>
@@ -245,7 +246,6 @@ int main ( int argc, char *argv[] ) {
 
     FILE *fp = NULL; /* le flux dans lequel les commande seront lues : stdin (mode shell) ou un fichier */
     mips uP;
-
 
     if ( argc > 2 ) {
         usage_ERROR_MSG( argv[0] );

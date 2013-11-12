@@ -26,6 +26,7 @@ typedef struct
     reg regPC;           // the PC register
     reg regHI;           // the higher HI register
     reg regLO;           // the lower LO register
+    reg regSR;           // the status SR register
 
     // Memory definition (size allocated dynamically)
     unsigned char * memText;
