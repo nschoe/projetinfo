@@ -3,6 +3,6 @@
 
 #include "mips.h"
 
-puint takeBits(uint value, int from, int nb);
+uint takeBits(uint value, int from, int nb);
 
 #endif

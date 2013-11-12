@@ -1,4 +1,4 @@
-#include "takeBits.c"
+#include "takeBits.h"
 
 uint takeBits(const uint value, const int from, const int nb)
 {
