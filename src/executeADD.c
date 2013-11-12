@@ -35,7 +35,7 @@ int executeADD( mips * pMips, const uint rawArgs )
     else
     {
 	// overflow : raise flag and do not update
-	pMips->regSR = (pMips->SR) || 0x800; // 2^11
+	pMips->regSR = (pMips->regSR) || 0x800; // 2^11
 
 	// happened okay
 	ret = 0;
