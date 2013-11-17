@@ -15,6 +15,9 @@ int executeAND( mips * pMips, const uint rawArgs )
 
     pMips->registers[rd] = (pMips->registers[rs]) & (pMips->registers[rt]);
 
+    // Update PC
+    pMips->regPC = pMips->regPC + 4;
+
     return 0;
 }
 

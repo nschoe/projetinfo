@@ -12,6 +12,9 @@ int executeMFLO( mips * pMips, const uint rawArgs )
 
     pMips->registers[rd] = pMips->regLO;
 
+    // Update PC
+    pMips->regPC = pMips->regPC + 4;
+
     return 0;
 }
 

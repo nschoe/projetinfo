@@ -4,8 +4,11 @@
 #include "executeNOP.h"
 #include "takeBits.h"
 
-int executeNOP( mips * pMips, const uint rawArgs )
+int executeNOP( mips * pMips )
 {   
+    // Update PC
+    pMips->regPC = pMips->regPC + 4;
+    
     return 0;
 }
 

@@ -7,16 +7,11 @@
 
 int executeJR( mips * pMips, const uint rawArgs )
 {
-    int rs, rt;
+    int rs;
 
     rs = takeBits( rawArgs, 6, 5 );
-    rt = takeBits( rawArgs, 11, 5 );
 
-    if( pMips->regisers[rt] != 0 )
-    {
-	pMips->regLO = pMips->registers[rs] / pMips->registers[rt];
-	pMips->regHI = pMips->registers[rs] % pMips->registers[rt];
-    }
+    pMips->regPC = pMips->registers[rs];
 
     return 0;
 }

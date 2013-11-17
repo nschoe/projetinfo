@@ -17,6 +17,8 @@ int executeMULT( mips * pMips, const uint rawArgs )
     pMips->regLO = (int) (prod << 32) >> 32;
     pMips->regHI = (int) (prod >> 32);
 
+    // Update PC
+    pMips->regPC = pMips->regPC + 4;
 
     return 0;
 }
