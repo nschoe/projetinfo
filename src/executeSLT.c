@@ -6,7 +6,7 @@
 
 int executeSLT( mips * pMips, const uint rawArgs )
 {   
-    int sa, rd, rt;
+    int rs, rd, rt;
 
     rs = takeBits( rawArgs, 6, 5 );
     rt = takeBits( rawArgs, 11, 5 );

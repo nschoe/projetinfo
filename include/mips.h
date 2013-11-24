@@ -15,6 +15,14 @@ typedef struct
     int order; // order of parameters
 } instr;
 
+struct element
+{
+    uint value;
+    struct element * next;
+};
+
+typedef struct element * list;
+
 // Architecture of the MIPS
 typedef struct
 {
@@ -47,5 +55,11 @@ typedef struct
     int sizeI;
     int sizeJ;
 } mips;
+
+typedef union
+{
+    uint i;
+    unsigned char c[4];
+} InstructionCode;
 
 #endif

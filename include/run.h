@@ -7,8 +7,10 @@
 
 #include "notify.h"
 #include "mips.h"
+#include "parseHexa.h"
+#include "execute.h"
 
-int executeRun(char * paramStr);
+int executeRun( mips * );
 int parseRun( mips *, char * );
 
 #endif

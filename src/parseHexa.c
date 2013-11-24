@@ -14,7 +14,7 @@ uint parseHexa( const char * str )
 	if( '0' == str[0] )
 	    v = 0;
 	else
-	    ERROR_MSG( "\"%s\" is not an hexadecimal value 2!\n", str );
+	    WARNING_MSG( "\"%s\" is not an hexadecimal value 2!\n", str );
     }
     // we can attempt to parse an hexa value
     else if( '0' == str[0] && 'x' == str[1] )
@@ -22,12 +22,12 @@ uint parseHexa( const char * str )
 	if( 1 != sscanf( str, "%x", &v ) )
 	{
 	    // Parse failed
-	    ERROR_MSG( "\"%s\" is not an hexadecimal value 3!\n", str );
+	    WARNING_MSG( "\"%s\" is not an hexadecimal value 3!\n", str );
 	}
 	    
     }
     else
-	ERROR_MSG( "\"%s\" is not an hexadecimal value 4!\n", str );
+	WARNING_MSG( "\"%s\" is not an hexadecimal value 4!\n", str );
     
     return v;
 }

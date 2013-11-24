@@ -7,8 +7,9 @@
 
 #include "notify.h"
 #include "mips.h"
+#include "execute.h"
 
-int executeSi(char * paramStr);
+int executeSi( mips * );
 int parseSi( mips *, char * );
 
 #endif

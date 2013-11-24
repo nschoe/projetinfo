@@ -3,6 +3,6 @@
 
 #include "mips.h"
 
-int executeNOP( mips *, const uint );
+int executeNOP( mips *);
 
 #endif

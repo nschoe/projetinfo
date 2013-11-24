@@ -12,7 +12,7 @@ int executeDIV( mips * pMips, const uint rawArgs )
     rs = takeBits( rawArgs, 6, 5 );
     rt = takeBits( rawArgs, 11, 5 );
 
-    if( pMips->regisers[rt] != 0 )
+    if( pMips->registers[rt] != 0 )
     {
 	// no division by zero : proceed
 	pMips->regLO = pMips->registers[rs] / pMips->registers[rt];

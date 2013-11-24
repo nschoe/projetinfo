@@ -6,7 +6,7 @@
 
 int executeSUB( mips * pMips, const uint rawArgs )
 {   
-    int sa, rd, rt, temp;
+    int rs, rd, rt, temp;
 
     rs = takeBits( rawArgs, 6, 5 );
     rt = takeBits( rawArgs, 11, 5 );
