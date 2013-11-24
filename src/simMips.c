@@ -39,6 +39,7 @@
 #include "mipself.h"
 #include "readELF.h"
 #include "dico.h"
+#include "list.h"
 
 /* prompt du mode shell interactif */
 #define PROMPT_STRING "SimMipsShell : > "
@@ -238,7 +239,6 @@ void usage_ERROR_MSG( char *command ) {
  * Programme principal
  */
 int main ( int argc, char *argv[] ) {
-    int i;// for test
     /* exemples d'utilisation des macros du fichier notify.h */
     INFO_MSG("Un message INFO_MSG : Debut du programme %s", argv[0]); /* macro INFO_MSG */
     WARNING_MSG("Un message WARNING_MSG !"); /* macro INFO_MSG */
@@ -261,6 +261,9 @@ int main ( int argc, char *argv[] ) {
     // Give it a name :)
     uP.name = (char *) malloc( 4 * sizeof( char ) );
     uP.name = "bob";
+
+    // break point list initialization
+    uP.bpList = NULL;
 
     /*par defaut : mode shell interactif */
     fp = stdin;

@@ -7,8 +7,10 @@
 
 #include "notify.h"
 #include "mips.h"
+#include "list.h"
+#include "parseHexa.h"
 
-int executeEr(char * paramStr);
+int executeEr( mips * pMips, uint addr );
 int parseEr( mips *, char * );
 
 #endif

@@ -2,15 +2,18 @@
 
 int executeRun( mips * pMips )
 {
+    uint endValue = pMips->sizeText*4096;
+
     if(pMips->memText)
     {
-	while(pMips->regPC < pMips->sizeText*4096) 
+	endValue = minOver(pMips->bpList, pMips->regPC);
+	while(pMips->regPC < endValue)
 	    execute(pMips);
 
 	return 0;
     }
 
-    printf("no load program\n");
+    printf("No load program\n");
 
     return 1;
 }

@@ -109,7 +109,6 @@ int printAssembler( mips * pMips, uint value )
 int executeDa( mips * pMips, uint addr, uint nb )
 {
     uint i;
-    uint instructionCode;
     int overflow = 0;
     InstructionCode instruc;
 

@@ -54,6 +54,9 @@ typedef struct
     int sizeR;
     int sizeI;
     int sizeJ;
+
+    // List of break point
+    list bpList;
 } mips;
 
 typedef union

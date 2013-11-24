@@ -4,8 +4,10 @@
 #include "notify.h"
 #include "mips.h"
 
+list initList();
 list addToList(list source, uint value);
-list rmToList(list source, uint value);
-int lookFor(const list source, const uint value);
+list rmFromList(list source, uint value);
+uint minOver(const list source, const uint value);
+void printList(const list source);
 
 #endif

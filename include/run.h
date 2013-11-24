@@ -9,6 +9,7 @@
 #include "mips.h"
 #include "parseHexa.h"
 #include "execute.h"
+#include "list.h"
 
 int executeRun( mips * );
 int parseRun( mips *, char * );
