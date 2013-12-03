@@ -12,11 +12,12 @@ int executeBEQ( mips * pMips, const uint rawArgs )
     rs = takeBits( rawArgs, 6, 5 );
     rt = takeBits( rawArgs, 11, 5 );
     offset = takeBits( rawArgs, 16, 16 );
+    if(offset > 32767)
+	offset = offset - 65536;
 
     if( pMips->registers[rs] == pMips->registers[rt] )
     {
-	    // TO CHECK : is it PC + 4 + offset or just PC + offset ?
-	pMips->regPC = pMips->regPC + (offset << 2);
+	pMips->regPC = pMips->regPC + 4 + offset*4;
     }
     else
     {

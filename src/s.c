@@ -4,7 +4,7 @@ int executeS(mips * pMips)
 {
     uint value, addr;
 
-    addr = pMips->regPC + 4;
+    addr = pMips->regPC + 8;
     value = pMips->memText[pMips->regPC] >> 26;
     execute(pMips);
     if(value == 0x03)

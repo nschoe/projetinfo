@@ -262,6 +262,9 @@ int main ( int argc, char *argv[] ) {
     uP.name = (char *) malloc( 4 * sizeof( char ) );
     uP.name = "bob";
 
+    uP.regPC = 0;
+    uP.registers[0] = 0;
+
     // break point list initialization
     uP.bpList = NULL;
 

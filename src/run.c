@@ -2,14 +2,20 @@
 
 int executeRun( mips * pMips )
 {
-    uint endValue = pMips->sizeText*4096;
-
+    uint i, endValue = pMips->realSizeText;
     if(pMips->memText)
     {
-	endValue = minOver(pMips->bpList, pMips->regPC);
+	i = minOver(pMips->bpList, pMips->regPC);
+	if(i != 0)
+	    endValue = i;
 	while(pMips->regPC < endValue)
-	    execute(pMips);
-
+	{
+	    i = execute(pMips);
+	    if(i == 1)
+		return 0;
+	    else if(i == 2)
+		return 1;
+	}
 	return 0;
     }
 
@@ -25,8 +31,21 @@ int parseRun( mips * pMips, char * args )
     if(strcmp(" ", args) != 0 && strcmp("", args) != 0)
     {
 	addr = parseHexa(args + 1);
-	if(addr < pMips->sizeText*4096)
-	    pMips->regPC = addr;
+	if(addr < pMips->realSizeText)
+	{
+	    if(!(addr % 4))
+		pMips->regPC = addr;
+	    else
+	    {
+		printf("This adress not multiple of 4\n");
+		return 1;
+	    }
+	}
+	else
+	{
+	    printf("This address does not contain assembler command\n");
+	    return 1;
+	}
     }
     executeRun(pMips);
 

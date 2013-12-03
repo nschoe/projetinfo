@@ -126,7 +126,6 @@ int executeDa( mips * pMips, uint addr, uint nb )
 
 	    printf( "%#x:\t%#x\t", addr+i, instruc.i );
 	    printAssembler(pMips, instruc.i);
-	    printf("\n");
 	}
 	else if( !overflow )
 	{

@@ -12,7 +12,7 @@ int executeJR( mips * pMips, const uint rawArgs )
     rs = takeBits( rawArgs, 6, 5 );
 
     pMips->regPC = pMips->registers[rs];
-
+ 
     return 0;
 }
 

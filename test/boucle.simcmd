@@ -1,0 +1,7 @@
+lp res/boucle.o
+dr $9
+dr $10
+run
+dr $9
+dr $10
+

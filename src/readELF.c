@@ -58,6 +58,10 @@ int readELF( const char * filename, mips * uP )
     uP->sizeData = (int) ceil( dataSection->size / 4096.0 );
     uP->sizeBss = (int) ceil( bssSection->size / 4096.0 );
 
+    uP->realSizeText = textSection->size;
+    uP->realSizeData = dataSection->size;
+    uP->realSizeBss = bssSection->size;
+
     // Clean up the sections returned by mips loader
     /*
     free( textSection->name );

@@ -46,6 +46,11 @@ typedef struct
     int sizeBss;
     int sizeData;
 
+    // Real sizes of segments in the MIPS
+    int realSizeText;
+    int realSizeBss;
+    int realSizeData;
+
     // Array of instruction by type
     instr * dicoR;
     instr * dicoI;

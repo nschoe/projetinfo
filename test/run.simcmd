@@ -1,0 +1,10 @@
+lp res/exempleELF.o
+da 0x0:2
+lr PC 0x0
+lr $8 0x0
+dr PC
+dr $8
+run
+dr PC
+dr $8
+

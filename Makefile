@@ -19,7 +19,7 @@ OBJ_RLS=$(SRC:.c=.rls.o)
 GARBAGE=*~ include/*~ *.orig include/*.orig src/*~ src/*.orig
 
 ARCHNAME=`date +%d-%m-%y-%H-%M`-`whoami`.tgz
-ARCHCONTENT=$(SRC) *file res include doc src/dico.txt releaseSimMips debugSimMips
+ARCHCONTENT=$(SRC) *file res include test src/dico.txt releaseSimMips debugSimMips
 
 #all : mips-load-test mips-load
 

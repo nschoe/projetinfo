@@ -71,7 +71,6 @@ uint minOver(const list source, const uint value)
 
     if(!source)
 	return 0;
-
     pElement = source;
     while(pElement->value <= value && pElement->next)
 	pElement = pElement->next;
