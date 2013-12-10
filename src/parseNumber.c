@@ -41,7 +41,7 @@ int parseNumber( const char * str, uint * result )
     {
 	errCode = 2;
 	WARNING_MSG( "Empty or only-space string" );
-	printf( "An empty (or space-only) string was given as a number.\n" );
+	//printf( "An empty (or space-only) string was given as a number.\n" );
     }
     else if( 1 == strlen( pch ) )
     {
@@ -54,7 +54,7 @@ int parseNumber( const char * str, uint * result )
 	{
 	    errCode = 2;
 	    WARNING_MSG( "\"%s\" is not a number ! (single digit check)\n", str );
-	    printf( "\"%s\" is not a number.\n", str );
+	    //printf( "\"%s\" is not a number.\n", str );
 	}
     }
     else if( '0' == pch[0] )
@@ -75,7 +75,7 @@ int parseNumber( const char * str, uint * result )
 	else
 	{
 	    WARNING_MSG( "\"%s\" is not a number ! (hexa or octal possible)\n", str );
-	    printf( "\"%s\" is not a number.\n", str );
+	    //printf( "\"%s\" is not a number.\n", str );
 	    errCode = 2;
 	}
     }
@@ -92,7 +92,7 @@ int parseNumber( const char * str, uint * result )
 	{
 	    errCode = 2;
 	    WARNING_MSG( "\"%s\" is not a number !\n (decimal fail)", str );
-	    printf( "\"%s\" is not a number.\n", str );
+	    //printf( "\"%s\" is not a number.\n", str );
 	}
     }
 

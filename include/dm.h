@@ -8,7 +8,7 @@
 #include "notify.h"
 #include "mips.h"
 
-int executeDmDirect( mips *, const uint );
+int executeDmDirect( mips *, const uint, const int, int * );
 int executeDmRange( mips *, const uint, const uint );
 int executeDmNb( mips *, const uint, const uint );
 int parseDm( mips *, const char * );

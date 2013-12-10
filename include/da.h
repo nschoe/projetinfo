@@ -13,5 +13,6 @@ int executeDa( mips *, uint, uint );
 int parseDa( mips *, char * );
 
 void switchEndian( InstructionCode * );
+int signAlign( const int );
 
 #endif

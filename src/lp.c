@@ -54,5 +54,7 @@ int executeLp( mips * uP, const char * filename )
 
     printf( "File \"%s\" successfully loaded.\n", filename );
 
+//    printf( "realSizeText = %d\nrealSizeData = %d\nrealSizeBss = %d\n", uP->realSizeText, uP->realSizeData, uP->realSizeBss );
+
     return 0;
 }

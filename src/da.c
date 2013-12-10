@@ -3,11 +3,22 @@
 #include "da.h"
 #include "notify.h"
 #include "delSpaces.h"
+#include "parseNumber.h"
+#include "nameRegisters.h"
+
+int signAlign( const int v )
+{
+    if( v > 32767 )
+	return v - 65536;
+    else
+	return v;
+}
 
 int printAssembler( mips * pMips, uint value )
 {
     int i, j, cpyOrder;
-    uint cpyValue = value >> 26, param[4];
+    uint cpyValue = value >> 26;
+    int param[4];
 
     if(!cpyValue)
     {
@@ -26,21 +37,28 @@ int printAssembler( mips * pMips, uint value )
 	    if(!param[0] && !param[1] && !param[2] && !param[3])
 	    {
 		printf("NOP\n");
-		return 0;
 	    }
-	    printf("SLL %d %d %d\n", param[2], param[1], param[3]);
-	    return 0;
+	    else
+	    {
+		//printf("SLL %d %d %d\n", param[2], param[1], param[3]);
+		printf("SLL $%s $%s %d\n", indexToName(param[2]), indexToName(param[1]), param[3] );
+	    }
+
+	    return CMD_OK_RETURN_VALUE;
 	}
 
 	if(cpyValue == 0x2)
 	{
 	    if(param[0] == 0x1)
 	    {
-		printf("ROTR %d %d %d\n", param[2], param[1], param[3]);
-		return 0;
+		printf("ROTR $%s $%s %d\n", indexToName(param[2]), indexToName(param[1]), param[3] );
 	    }
-	    printf("SRL %d %d %d\n", param[2], param[1], param[3]);
-	    return 0;
+	    else
+	    {
+		printf("SRL $%s $%s %d\n", indexToName(param[2]), indexToName(param[1]), param[3] );
+	    }
+	   
+	    return CMD_OK_RETURN_VALUE;
 	}
 
 	for(i = 0; i < pMips->sizeR; i++)
@@ -53,10 +71,10 @@ int printAssembler( mips * pMips, uint value )
 		{		
 		    j = cpyOrder - (cpyOrder/10)*10;
 		    cpyOrder /= 10;
-		    printf(" %d", param[j - 1]);
+		    printf(" $%s", indexToName(param[j - 1]) );
 		}
 		printf("\n");
-		return 0;
+		return CMD_OK_RETURN_VALUE;
 	    }
 	}
     }
@@ -68,7 +86,7 @@ int printAssembler( mips * pMips, uint value )
 	    if(pMips->dicoJ[i].op_code == cpyValue)
 	    {
 		printf("%s %#x\n", pMips->dicoJ[i].name, cpyValue);
-		return 0;
+		return CMD_OK_RETURN_VALUE;
 	    }
 	}
 
@@ -81,8 +99,8 @@ int printAssembler( mips * pMips, uint value )
 
 	if(cpyValue == 0x2B)
 	{
-	    printf("SW %d %d(%d)\n", param[1], param[2], param[0]);
-	    return 0;
+	    printf("SW $%s %d(%d)\n", indexToName(param[1]), param[2], param[0]);
+	    return CMD_OK_RETURN_VALUE;
 	}
 
 	for(i = 0; i < pMips->sizeI; i++)
@@ -95,16 +113,19 @@ int printAssembler( mips * pMips, uint value )
 		{		
 		    j = cpyOrder - (cpyOrder/10)*10;
 		    cpyOrder /= 10;
-		    printf(" %d", param[j - 1]);
+		    if( 2 == j || 1 == j )
+			printf(" $%s", indexToName(param[j - 1]) );
+		    else
+			printf(" %d", signAlign( param[j - 1] ) );
 		}
 		printf("\n");
 
-		return 0;
+		return CMD_OK_RETURN_VALUE;
 	    }
 	}
     }
 
-    return 0;
+    return CMD_OK_RETURN_VALUE;
 }
 
 int executeDa( mips * pMips, uint addr, uint nb )
@@ -198,47 +219,6 @@ int parseDa( mips * pMips, char * args )
 
     return 0;
 }
-
-/*
-int parseDa( mips * pMips, char * args )
-{
-    uint addr;
-    uint nbInstructions;
-    
-    /* Check the format of the parameter :
-       addr     -- assume display only 1 instruction
-       addr:nb  -- display nb instructions
-    */
-/*
-    //da addr:nb
-    if( 2 == sscanf( args, "%x:%d", &addr, &nbInstructions ) )
-    {
-	if( 0 != addr % 4 )
-	{
-	    WARNING_MSG( "Careful : instructions are aligned on addresses that are multiple of 4, %#x is not.\n", addr );
-	}
-	else
-	    executeDa( pMips, addr, nbInstructions );
-    }
-    // da addr
-    else if( 1 == sscanf( args, "%x", &addr ) )
-    {
-	if( 0 != addr % 4 )
-	{
-	    WARNING_MSG( "Careful : instructions are aligned on addresses that are multiple of 4, %#x is not.\n", addr );
-	}
-	else
-	    executeDa( pMips, addr, 1 );
-    }
-    else
-    {
-	WARNING_MSG( "Usage : da addr | da addr:nb where addr is a hexadecimal memory address and nb is a decimal number of instructions.\n" );
-    }
-    
-
-    return 0;
-}
-*/
 
 void switchEndian( InstructionCode * ins )
 {
