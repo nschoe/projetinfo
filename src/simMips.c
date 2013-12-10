@@ -38,8 +38,9 @@
 #include "initMips.h"
 #include "mipself.h"
 #include "readELF.h"
-#include "dico.h"
 #include "list.h"
+
+#include "parseNumber.h"
 
 /* prompt du mode shell interactif */
 #define PROMPT_STRING "SimMipsShell : > "
@@ -256,17 +257,22 @@ int main ( int argc, char *argv[] ) {
         exit( EXIT_SUCCESS );
     }
 
+    if( initMips( &uP, "bob", "dico.txt" ) )
+    {
+	ERROR_MSG( "Failed while initializing mips" );
+    }
+
     // Mips initialization
     //uP = initMips( "bob", 1, 2, 3 );
     // Give it a name :)
-    uP.name = (char *) malloc( 4 * sizeof( char ) );
-    uP.name = "bob";
+    //uP.name = (char *) malloc( 4 * sizeof( char ) );
+    //uP.name = "bob";
 
-    uP.regPC = 0;
-    uP.registers[0] = 0;
+    //uP.regPC = 0;
+    //uP.registers[0] = 0;
 
     // break point list initialization
-    uP.bpList = NULL;
+    //uP.bpList = NULL;
 
     /*par defaut : mode shell interactif */
     fp = stdin;
@@ -279,8 +285,8 @@ int main ( int argc, char *argv[] ) {
         }
     }
 
-    if(loadDico(&uP))
-	ERROR_MSG("Failed to load dictionnary\n");
+    //if(loadDico(&uP))
+    //ERROR_MSG("Failed to load dictionnary\n");
 
     /* boucle principale : lit puis execute une cmd en boucle */
     while ( 1 ) {

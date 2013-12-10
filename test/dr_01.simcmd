@@ -1,0 +1,3 @@
+lr $pc 0x1089
+dr pc
+dr $pc

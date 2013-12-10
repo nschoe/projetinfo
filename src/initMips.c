@@ -1,6 +1,48 @@
 #include "initMips.h"
 #include "notify.h"
+#include "dico.h"
 
+int initMips( mips * puP, const char * name, const char * dicoFile )
+{
+    // TODO : add the possibility to change dictionnary based on its name
+    int i;
+
+    // Name our puP (emotional moment !)
+    puP->name = (char *) malloc( 1 + strlen( name ) );
+    strcpy( puP->name, name );
+
+    // Registers initialization
+    puP->regPC = 0;
+    puP->regHI = 0;
+    puP->regLO = 0;
+    puP->regSR = 0;
+    for( i = 0; i < 32; i++ )
+	puP->registers[i] = 0;
+
+    // Initialize break points list
+    puP->bpList = NULL;
+
+    // Initializing memory
+    puP->memText = NULL;
+    puP->memBss = NULL;
+    puP->memData = NULL;
+    puP->dicoR = NULL;
+    puP->dicoI = NULL;
+    puP->dicoJ = NULL;
+
+    // Init sizes
+    puP->sizeText = 0;
+    puP->sizeBss = 0;
+    puP->sizeData = 0;
+    puP->realSizeText = 0;
+    puP->realSizeBss = 0;
+    puP->realSizeData = 0;
+
+    // Dictionnary loading
+    return( loadDico( puP ) );
+}
+
+/*
 mips initMips( const char * name, const int sizeText, const int sizeData, const int sizeBss )
 {
     mips uP;
@@ -35,3 +77,4 @@ mips initMips( const char * name, const int sizeText, const int sizeData, const 
 
     return uP;
 }
+*/

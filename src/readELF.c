@@ -10,7 +10,7 @@
 
 /* Use mipsloader to read and parse an ELF file and store its
    information in the mips data structure*/
-int readELF( const char * filename, mips * uP )
+int readELF( mips * uP, const char * filename )
 {
     SectionELF * textSection;
     SectionELF * dataSection;
@@ -27,7 +27,7 @@ int readELF( const char * filename, mips * uP )
     // Parsing ELF file with mipsloader function
     if( mipsloader( filename, textSection, dataSection, bssSection ) )
     {
-	ERROR_MSG( "Error while reading ELF file !\n" );
+	ERROR_MSG( "Error while reading ELF file !" );
     }
     
     /* Making the links between their stucture (from mipsloader)
@@ -40,13 +40,13 @@ int readELF( const char * filename, mips * uP )
 
     // Check for allocation error
     if( NULL == uP->memText )
-	ERROR_MSG( "Error while allocating space for the text section (%d bytes)\n", textSection->size );
+	ERROR_MSG( "Error while allocating space for the text section (%d bytes)", textSection->size );
 
     if( NULL == uP->memData )
-	ERROR_MSG( "Error while allocating space for the data section (%d bytes)\n", dataSection->size );
+	ERROR_MSG( "Error while allocating space for the data section (%d bytes)", dataSection->size );
 
     if( NULL == uP->memBss )
-	ERROR_MSG( "Error while allocating space for the bss section (%d bytes)\n", bssSection->size );
+	ERROR_MSG( "Error while allocating space for the bss section (%d bytes)", bssSection->size );
 
     // Actual data copy
     memcpy( uP->memText, textSection->data, textSection->size );
@@ -63,7 +63,6 @@ int readELF( const char * filename, mips * uP )
     uP->realSizeBss = bssSection->size;
 
     // Clean up the sections returned by mips loader
-    /*
     free( textSection->name );
     free( textSection->data );
     free( textSection );
@@ -75,6 +74,6 @@ int readELF( const char * filename, mips * uP )
     free( bssSection->name );
     free( bssSection->data );
     free( bssSection );
-    */
+
     return 0;
 }

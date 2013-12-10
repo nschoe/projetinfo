@@ -9,7 +9,7 @@ INCDIR= -Iinclude
 
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 CFLAGS_RLS=$(CFLAGS)
-CFLAGS= -Wall $(INCDIR)
+CFLAGS= -Wall -Wshadow $(INCDIR)
 LFLAGS= -lelf -lm -lreadline -lcurses
 
 SRC=$(wildcard $(SRCDIR)/*.c)

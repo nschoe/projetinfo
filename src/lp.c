@@ -10,7 +10,7 @@
 /* Check that one and exactly one file argument has been given
    and that it exists and is readable
 */
-int parseLp( mips * pMips, char * args )
+int parseLp( mips * pMips, const char * args )
 {
     char * argsCopy = malloc( strlen( args ) * sizeof( char ) );
     char * pch = NULL;
@@ -26,7 +26,8 @@ int parseLp( mips * pMips, char * args )
     // Check if we have one argument given
     if( NULL == pch )
     {
-	WARNING_MSG( "Usage: lp filename\nwhere filename is an MIPS 32 ELF file.\n" );
+	WARNING_MSG( "usage : lp filename" );
+	printf( "Usage: lp filename\nwhere filename is an MIPS 32 ELF file.\n" );
 	return 2;
     }
     else
@@ -35,32 +36,21 @@ int parseLp( mips * pMips, char * args )
 	h = fopen( pch, "r" );
 	if( NULL == h )
 	{
-	    WARNING_MSG( "The file \"%s\" doesn't exists or you don't have the permissions to read it.\n", pch );
+	    WARNING_MSG( "File doesn't exist" );
+	    printf( "The file \"%s\" doesn't exist or you don't have the permissions to read it.\n", pch );
 	    return 3;
 	}
 	else
 	{	    
 	    fclose( h );
-	    executeLp( pMips, pch );
+	    return( executeLp( pMips, pch ) );
 	}
-
-	// Do a second cut to check that only one file was given
-	pch = strtok (NULL, delim);
-
-	if( NULL != pch )
-	{
-	    WARNING_MSG( "The function lp only takes the first argument into account and will ignore the others.\n" );
-	}
-
     }
-    
-    return CMD_OK_RETURN_VALUE;
 }
 
 int executeLp( mips * uP, const char * filename )
 {
-
-    readELF( filename, uP );
+    readELF( uP, filename );
 
     printf( "File \"%s\" successfully loaded.\n", filename );
 

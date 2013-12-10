@@ -1,7 +1,8 @@
-#include "da.h"
-#include "parseAddr.h"
-#include "notify.h"
 #include <string.h>
+
+#include "da.h"
+#include "notify.h"
+#include "delSpaces.h"
 
 int printAssembler( mips * pMips, uint value )
 {
@@ -112,9 +113,9 @@ int executeDa( mips * pMips, uint addr, uint nb )
     int overflow = 0;
     InstructionCode instruc;
 
-    for( i = 0; i < 4*nb; i += 4 )
+    for( i = 0; !overflow && (i < 4*nb); i += 4 )
     {
-	if( !overflow && addr + i < pMips->sizeText*4096 )
+	if( addr + i < pMips->realSizeText )
 	{
 	    //printf( "%#x:\t%#x\t", addr+i, *(pMips->memText + i) );
 	    instruc.c[0] = *(pMips->memText + addr + i);
@@ -127,17 +128,78 @@ int executeDa( mips * pMips, uint addr, uint nb )
 	    printf( "%#x:\t%#x\t", addr+i, instruc.i );
 	    printAssembler(pMips, instruc.i);
 	}
-	else if( !overflow )
+	else
 	{
 	    overflow = 1;
-	    WARNING_MSG( "%#x not in text segment (no assembly code to display !\n", addr + i );
-	    break;
 	}
+    }
+
+    if( overflow )
+    {
+	WARNING_MSG( "overflow" );
+	printf( "Reached end of .text segment at address %#x\n", pMips->realSizeText );
     }
 
     return CMD_OK_RETURN_VALUE;
 }
 
+int parseDa( mips * pMips, char * args )
+{
+    char * argCopy = NULL, * pch = NULL;
+    uint v1, v2;
+
+    if( 0 == pMips->realSizeText )
+    {
+	WARNING_MSG( "No program loaded" );
+	printf( "No program was loaded into memory : no assembly to display.\n" );
+	return 0;
+    }
+
+    argCopy = (char *) malloc( 1 + strlen( args ) );
+    strcpy( argCopy, args );
+
+    delSpaces( argCopy );
+
+    if( parseNumber( argCopy, &v1 ) )
+    {
+	WARNING_MSG( "Bad form usage" );
+	printf( "Usage : da <addr> : <nb_instr> where <addr> is aligned on a multiple of 4. If <nb_instr> is ommited, assumed as 1.\n" );
+    }
+
+    // Checks that the address is aligned over 4
+    if( 0 != (v1 % 4) )
+    {
+	WARNING_MSG( "address not aligned over 4" );
+	printf( "Addresses must be aligend on a multiple of 4.\n" );
+	return 2;
+    }
+
+    // Check form addr:nb
+    pch = strstr( argCopy, ":" );
+
+    if( NULL != pch )
+    {
+	// then addr : nb
+	if( parseNumber( pch+1, &v2 ) )
+	{
+	    WARNING_MSG( "Bad second argument" );
+	    printf( "Usage : da <addr> : <nb_instr> where <addr> is aligned on a multiple of 4. If <nb_instr> is ommited, assumed as 1.\n" );
+	}
+	else
+	{	 
+	    executeDa( pMips, v1, v2 );
+	}
+    }
+    else
+    {
+	// then only addr
+	executeDa( pMips, v1, 1 );
+    }
+
+    return 0;
+}
+
+/*
 int parseDa( mips * pMips, char * args )
 {
     uint addr;
@@ -147,7 +209,7 @@ int parseDa( mips * pMips, char * args )
        addr     -- assume display only 1 instruction
        addr:nb  -- display nb instructions
     */
-
+/*
     //da addr:nb
     if( 2 == sscanf( args, "%x:%d", &addr, &nbInstructions ) )
     {
@@ -176,6 +238,7 @@ int parseDa( mips * pMips, char * args )
 
     return 0;
 }
+*/
 
 void switchEndian( InstructionCode * ins )
 {

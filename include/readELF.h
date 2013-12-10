@@ -6,6 +6,6 @@
 #include"mipself.h"
 #include "mips.h"
 
-int readELF( const char *, mips * );
+int readELF( mips *, const char * );
 
 #endif

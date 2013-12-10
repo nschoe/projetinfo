@@ -8,7 +8,7 @@
 #include "notify.h"
 #include "mips.h"
 
-int executeEx();
+int executeEx( mips * );
 int parseEx( mips * , char *);
 
 #endif

@@ -7,5 +7,6 @@
 
 #include "mips.h"
 
-mips initMips( const char *, const int, const int, const int );
+int initMips( mips * puP, const char * name, const char * dicoFile );
+
 #endif
