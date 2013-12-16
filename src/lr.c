@@ -37,12 +37,14 @@ int parseLr( mips * pMips, const char * paramStr )
     // first get the register
     regName = strtok( argCopy, " " );
 
-//    printf( "register = [%s]\n", regName );
+    if( NULL == regName )
+    {
+	printf( "No register name given.\n" );
+	return 2;
+    }
 
     // then get the number
     pch = strtok( NULL, " " );
-
-//    printf( "pch = [%s]\n", pch );
 
     if( parseNumber( pch, &value ) )
     {
