@@ -72,6 +72,12 @@ int parseNumber( const char * str, uint * result )
 	    sscanf( pch, "%o", result );
 	    errCode = 0;
 	}
+	else if( ':' == pch[1] || '~' == pch )
+	{
+	    // In the form 0:xxx or 0~xxx with no spaces
+	    *result = 0;
+	    errCode = 0;
+	}
 	else
 	{
 	    WARNING_MSG( "\"%s\" is not a number ! (hexa or octal possible)\n", str );

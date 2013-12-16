@@ -7,7 +7,7 @@ int executeLm( mips * pMips, const uint addr, const uint value )
 {
     char seg[10];
     InstructionCode v;
-    int wrote = 1;\
+    int wrote = 1;
 
     v.i = value;
     switchEndian( &v );
