@@ -3,6 +3,7 @@
 int executeBp(mips * pMips, uint addr)
 {
     pMips->bpList = addToList(pMips->bpList, addr);
+    printf("Adress %#x added to breakpoint list\n", addr); 
 
     return 0;
 }
@@ -11,7 +12,10 @@ int parseBp( mips * pMips, char * args )
 {
     uint addr;
 
-    addr = parseHexa(args + 1);
+    if(!parseNumber(args + 1, &addr))
+    {
+	printf("Usage : bp <addr>\n");
+    }
     if(addr < pMips->sizeText*4096)
     {
 	if(addr != (addr >> 2) << 2)

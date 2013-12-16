@@ -10,6 +10,7 @@ int executeRun( mips * pMips )
 	    endValue = i;
 	while(pMips->regPC < endValue)
 	{
+	    executeDa(pMips, pMips->regPC, 1);
 	    i = execute(pMips);
 	    if(i == 1)
 		return 0;

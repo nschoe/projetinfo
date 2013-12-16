@@ -10,6 +10,7 @@
 #include "parseHexa.h"
 #include "execute.h"
 #include "list.h"
+#include "executeDa.h"
 
 int executeRun( mips * );
 int parseRun( mips *, char * );
