@@ -1,4 +1,6 @@
 #include "lr.h"
+#include "parseNumber.h"
+#include "nameRegisters.h"
 
 int executeLr(int index, uint value, mips * pMips)
 {
@@ -21,9 +23,88 @@ int executeLr(int index, uint value, mips * pMips)
     return CMD_OK_RETURN_VALUE;
 }
 
-int parseLr( mips * pMips,  char * paramStr )
+int parseLr( mips * pMips, const char * paramStr )
 {
-    char * paramStrCpy = malloc(strlen(paramStr)*sizeof(char));
+    char * argCopy = NULL, * regName = NULL, * pch = NULL;
+    uint value;
+    int regNb;
+
+    
+    // Copy parameter to allow modifications
+    argCopy = (char *) malloc( 1 + strlen( paramStr ) );
+    strcpy( argCopy, paramStr );
+
+    // first get the register
+    regName = strtok( argCopy, " " );
+
+//    printf( "register = [%s]\n", regName );
+
+    // then get the number
+    pch = strtok( NULL, " " );
+
+//    printf( "pch = [%s]\n", pch );
+
+    if( parseNumber( pch, &value ) )
+    {
+	WARNING_MSG( "no number to load" );
+	printf( "No number to load in register.\n" );
+    }
+    else
+    {
+//	printf( "Number to load : %#x\n", value );
+	if( '$' == regName[0] )
+	{
+	    regName++; // we lose memory here : TO FIX
+	}
+	regNb = nameToIndex( regName );
+	
+	if( regNb != -1 )
+	{
+	    if( regNb >= 0 && regNb <= 31 )
+	    {
+		// general purpose register
+		pMips->registers[regNb] = value;
+		printf( "Loaded 0x%x in register %s.\n", value, indexToName( regNb ) );
+		return CMD_OK_RETURN_VALUE;
+	    }
+	    else
+	    {
+		switch( regNb )
+		{
+		case 32:
+		    pMips->regPC = value;
+		    break;
+		    
+		case 33:
+		    pMips->regHI = value;
+		    break;
+		    
+		case 34:
+		    pMips->regLO = value;
+		    break;
+		    
+		case 35:
+		    pMips->regSR = value;
+		    break;
+		    
+		default:
+		    WARNING_MSG( "wrong index number" );
+		    printf( "Wrong register given.\n" );
+		    return 2;
+		}
+		
+		return CMD_OK_RETURN_VALUE;
+	    }
+	}
+    }
+    
+    return 0;
+}
+
+/*
+int parseLr( mips * pMips, const char * paramStr )
+{
+    char * paramStrCpy = NULL;
     char * regName = NULL;
     char * regValue = NULL;
     char delim[] = " ";
@@ -31,6 +112,8 @@ int parseLr( mips * pMips,  char * paramStr )
     int index = 32, i;
     uint value;
     char * regsNames[] = {"$zero", "$at", "$vo", "$v1", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7", "$s0", "$s1", "$s2", "$s3", "$s4", "$s5", "$s6", "$s7", "$t8", "$t9", "$k0", "$k1", "$gp", "$sp", "$fp", "$ra"};
+
+    paramStrCpy = malloc(strlen(paramStr)*sizeof(char));
 
     strcpy(paramStrCpy, paramStr); // copy of param allowing modifications
 
@@ -88,3 +171,4 @@ int parseLr( mips * pMips,  char * paramStr )
 
     return executeLr(index, value, pMips); // change register value
 }
+*/
