@@ -46,6 +46,12 @@ int parseLr( mips * pMips, const char * paramStr )
     // then get the number
     pch = strtok( NULL, " " );
 
+    if( NULL == pch )
+    {
+	printf( "No value given.\n" );
+	return 2;
+    }
+
     if( parseNumber( pch, &value ) )
     {
 	WARNING_MSG( "no number to load" );

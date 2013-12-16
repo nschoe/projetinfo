@@ -114,6 +114,12 @@ int parseDm( mips * pMips, const char * paramStr )
     // Remove interspaced spaces
     delSpaces( argCopy );
 
+    if( !strcmp( "", argCopy ) )
+    {
+	printf( "Usage : dm <addr> | <addr>:<nyBytes> | <addr1>~<addr2> where addr, addr1 and addr2 are given in hexadecimal form and nyBytes in decimal form.\n" );
+	return 2;
+    }
+
     // Acquire address
     if( parseNumber( argCopy, &v1 ) )
     {
