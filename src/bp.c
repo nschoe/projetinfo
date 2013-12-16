@@ -1,4 +1,5 @@
 #include "bp.h"
+#include "parseNumber.h"
 
 int executeBp(mips * pMips, uint addr)
 {

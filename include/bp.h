@@ -8,7 +8,6 @@
 #include "notify.h"
 #include "mips.h"
 #include "list.h"
-#include "parseHexa.h"
 
 int executeBp( mips * pMips, uint addr);
 int parseBp( mips *, char * );
